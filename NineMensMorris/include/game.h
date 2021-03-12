@@ -8,6 +8,9 @@
 #include <vector>
 #include <QObject>
 #include <QGraphicsScene>
+#include <QLabel>
+#include <QString>
+#include <QFont>
 #include <QtWidgets/QGraphicsProxyWidget>
 
 
@@ -20,11 +23,16 @@ public:
     void pieceCleanup(std::vector<Piece*> &pieces);
     void boardCleanup(QGraphicsProxyWidget* proxyBoard);
     void spaceCleanup(std::vector<Space*> &spaces);
+    void textItemCleanup();
 
     int getSpaceIndex(Space *space);
     void setAdjacentSpaces(Piece *piece, bool value);
     void setAllSpaceValidity(bool value);
     bool pieceInMill(Piece *piece);
+
+    void setTurnCountText(int turn);
+    void setPlayerTurnText(bool whitePiece);
+    void setInstructionText(int turnNumber, bool captureMode = false);
 
     void checkForNewMill();
     void checkForFlying();
@@ -73,6 +81,12 @@ private:
     std::vector<Space*> spaceList;
     std::vector<Piece*> whitePieces;
     std::vector<Piece*> blackPieces;
+
+    QGraphicsTextItem *titleText;
+    QGraphicsTextItem *turnText;
+    QGraphicsTextItem *whitePieceText;
+    QGraphicsTextItem *blackPieceText;
+    QGraphicsTextItem *instructionText;
 
 signals:
 

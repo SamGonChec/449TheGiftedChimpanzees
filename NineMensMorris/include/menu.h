@@ -11,13 +11,15 @@ class Menu : public QObject{
     Q_OBJECT
 private:
     QPushButton* twoPlayerButton;
+    QPushButton* quitButton;
 public:
     QGraphicsScene* scene;
     Menu(QGraphicsScene *scene);
     void mainMenuScreen();
     QPushButton *returnTwoPlayerPushButton() {return twoPlayerButton;}
-signals:
-    void buttonClicked();
+    QPushButton *returnQuitButton() {return quitButton;}
+protected:
+     void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
 };
 

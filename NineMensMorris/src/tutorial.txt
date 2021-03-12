@@ -1,0 +1,13 @@
+Players take turns to play a piece of their own colour on any unoccupied point until all eighteen pieces have been played. 
+After that, play continues alternately but each turn consists of a player moving one piece along a line to an adjacent empty point.
+
+During each turn, whenever a player has three of their pieces in a line, they form a mill. 
+That player then immediately removes from the board one piece belonging to the opponent that does not form part of a mill. 
+If all of the opponent's pieces form mills, then the player is allowed to remove any one of the opponent's pieces. 
+Players may break a mill by moving a piece out of it and then, in a subsequent turn, 
+play the piece back again, thus forming a new mill and capturing another piece.
+Captured pieces cannot be reclaimed and are out of the game.
+
+When a player is reduced to three pieces they may then move to any vacant point on the board.
+
+The player wins the game when either they reduced their opponent to two pieces or by leaving them without a legal move.

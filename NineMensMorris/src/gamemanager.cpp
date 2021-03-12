@@ -11,7 +11,18 @@ GameManager::GameManager(){
     view.show();
 
     //Connecting the button to the library signal clicked, along with the slot switchTwoPlayerMode
-    connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTwoPlayerMode()));
+    connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTutorialScreen()));
+    connect(menu.returnQuitButton(),SIGNAL(clicked()),qApp,SLOT(quit()));
+}
+
+void GameManager::switchTutorialScreen()
+{
+    Tutorial tutorial(&tutorialScene);
+
+    view.setScene(&tutorialScene);
+    view.show();
+
+    connect(tutorial.returnPushButton(),SIGNAL(clicked()),this,SLOT(switchTwoPlayerMode()));
 }
 
 void GameManager::switchTwoPlayerMode()
