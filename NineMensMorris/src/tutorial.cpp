@@ -24,8 +24,9 @@ void Tutorial::tutorialScreen()
     tutorialTextDisplay->setFont(tutorialFont);
     tutorialTextDisplay->setPos(50,200);
 
-    tutorialButton = new QPushButton(QString("Continue to Game"),NULL);
+    tutorialButton = new QPushButton(QString("Continue"),NULL);
     tutorialButton->setFont(buttonFont);
+    tutorialButton->setStyleSheet("background-color: brown; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     tutorialButton->setGeometry(325,650,150,70);
     scene->addWidget(tutorialButton);
 }
