@@ -24,7 +24,7 @@ void Tutorial::tutorialScreen()
     tutorialTextDisplay->setFont(tutorialFont);
     tutorialTextDisplay->setPos(50,200);
 
-    tutorialButton = new QPushButton(QString("Exit Tutorial"),NULL);
+    tutorialButton = new QPushButton(QString("Continue to Game"),NULL);
     tutorialButton->setFont(buttonFont);
     tutorialButton->setGeometry(325,650,150,70);
     scene->addWidget(tutorialButton);

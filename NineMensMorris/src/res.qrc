@@ -2,4 +2,7 @@
     <qresource prefix="/text">
         <file>tutorial.txt</file>
     </qresource>
+    <qresource prefix="/images">
+        <file>media/chimp.jpg</file>
+    </qresource>
 </RCC>

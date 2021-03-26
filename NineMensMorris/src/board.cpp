@@ -2,6 +2,7 @@
 
 Board::Board() {
     resize(800,800);
+    setAttribute(Qt::WA_NoSystemBackground);
 }
 
 void Board::paintEvent(QPaintEvent */*event*/) {

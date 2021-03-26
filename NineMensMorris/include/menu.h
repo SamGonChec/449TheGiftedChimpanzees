@@ -5,6 +5,8 @@
 #include <QGraphicsView>
 #include <QPushButton>
 #include <QWidget>
+#include<QImage>
+#include <QGraphicsPixmapItem>
 #include "include/game.h"
 
 class Menu : public QObject{
@@ -12,6 +14,8 @@ class Menu : public QObject{
 private:
     QPushButton* twoPlayerButton;
     QPushButton* quitButton;
+    QPushButton* computerButton;
+    QImage menuBackground;
 public:
     QGraphicsScene* scene;
     Menu(QGraphicsScene *scene);
