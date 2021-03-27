@@ -13,21 +13,20 @@ void Tutorial::tutorialScreen()
 
     QGraphicsTextItem* tutorialTitleDisplay = scene->addText("Tutorial");
     QGraphicsTextItem* tutorialTextDisplay = scene->addText(file.readAll());
-
+    tutorialButton = new QPushButton(QString("Continue"),NULL);
     QFont titleFont("comic sans MS", 30);
     QFont tutorialFont("comic sans MS", 10);
     QFont buttonFont("comic sans MS", 14);
 
     tutorialTitleDisplay->setFont(titleFont);
-    tutorialTitleDisplay->setPos(325,0);
-
     tutorialTextDisplay->setFont(tutorialFont);
-    tutorialTextDisplay->setPos(50,200);
-
-    tutorialButton = new QPushButton(QString("Continue"),NULL);
     tutorialButton->setFont(buttonFont);
-    tutorialButton->setStyleSheet("background-color: brown; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    tutorialButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+
+    tutorialTitleDisplay->setPos(325,0);
+    tutorialTextDisplay->setPos(50,200);
     tutorialButton->setGeometry(325,650,150,70);
+
     scene->addWidget(tutorialButton);
 }
 

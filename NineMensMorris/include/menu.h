@@ -15,7 +15,7 @@ private:
     QPushButton* twoPlayerButton;
     QPushButton* quitButton;
     QPushButton* computerButton;
-    QImage menuBackground;
+    QPixmap menuBackground;
 public:
     QGraphicsScene* scene;
     Menu(QGraphicsScene *scene);

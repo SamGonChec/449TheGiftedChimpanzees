@@ -4,5 +4,6 @@
     </qresource>
     <qresource prefix="/images">
         <file>media/chimp.jpg</file>
+        <file>media/grainy-wood.jpg</file>
     </qresource>
 </RCC>

@@ -3,6 +3,7 @@
 Piece::Piece(int x, int y, bool white) {
     resize(31,31);
     move(x, y);
+
     setAttribute(Qt::WA_NoSystemBackground);
     whitePiece = white;
     hover = false;
