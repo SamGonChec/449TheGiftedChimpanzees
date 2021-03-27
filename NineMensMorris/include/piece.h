@@ -18,6 +18,10 @@ public:
     bool isCaptured() { return captured; }
     bool isInPlay() { return inPlay; }
 
+    //Computer Player Functions
+    void computerPlayerSelect() { emit clickSelect(this); }
+    void computerPlayerCapture() { emit clickCapture(this); }
+
 private:
     Space *inSpace;
     bool whitePiece;

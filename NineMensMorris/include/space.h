@@ -17,6 +17,10 @@ public:
 
     bool hasWhitePiece() { return (occupied && white); }
     bool hasBlackPiece() { return (occupied && !white); }
+
+    //Computer Player Function
+    void computerClickSpace() { emit clicked(this); }
+
 protected:
     void mousePressEvent(QMouseEvent *event);
     void enterEvent(QEvent *event);

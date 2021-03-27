@@ -7,6 +7,7 @@
 #include "include/menu.h"
 #include "include/tutorial.h"
 #include "include/game.h"
+#include "singleplayergame.h"
 
 class GameManager : public QObject
 {
@@ -16,7 +17,7 @@ public:
     QGraphicsScene gameScene;
     QGraphicsScene tutorialScene;
     QGraphicsView view;
-    Game* game;
+    Game *game;
     GameManager();
 private slots:
     void switchTutorialScreen();
