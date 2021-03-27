@@ -1,4 +1,4 @@
-#include <include/menu.h>
+#include "include/menu.h"
 
 Menu::Menu(QGraphicsScene *scene){
     this->scene = scene;

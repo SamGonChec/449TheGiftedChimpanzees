@@ -1,7 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 
-#include "space.h"
+#include "include/space.h"
 
 class Piece : public QWidget {
     Q_OBJECT

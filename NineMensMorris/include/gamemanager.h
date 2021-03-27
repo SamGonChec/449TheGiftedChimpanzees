@@ -7,7 +7,7 @@
 #include "include/menu.h"
 #include "include/tutorial.h"
 #include "include/game.h"
-#include "singleplayergame.h"
+#include "include/singleplayergame.h"
 
 class GameManager : public QObject
 {

@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "space.h"
-#include "piece.h"
-#include "board.h"
+#include "include/space.h"
+#include "include/piece.h"
+#include "include/board.h"
 
 #include <vector>
 #include <QObject>
