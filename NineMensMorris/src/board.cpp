@@ -2,16 +2,18 @@
 
 Board::Board() {
     resize(800,800);
+    setAttribute(Qt::WA_NoSystemBackground);
 }
 
 void Board::paintEvent(QPaintEvent */*event*/) {
 /*Overloading virtual function to implement board appearance*/
     QPainter painter(this);
-
-    painter.setBrush(QColor(200,200,115));
-    painter.drawRect(QRect(50, 0, 700, 700));
+    QPixmap pix(":/images/media/grainy-wood.jpg");
+    painter.setBrush(QBrush(pix));
+    painter.setPen(QPen(Qt::black,5));
+    painter.drawRect(QRect(50, 0, 700, 670));
     //Outer square
-    chooseLineColor(&painter, 0);
+    chooseLineColor(&painter, 1);
     painter.drawLine(100,650,100,50);
     chooseLineColor(&painter, 1);
     painter.drawLine(100,50,700,50);
@@ -54,7 +56,7 @@ void Board::chooseLineColor(QPainter *painter, int millIndex) {
     painter->setPen(Qt::black);
     for (i = 0; i < currentMills.size(); i++) {
         if (currentMills[i] == millIndex) {
-            painter->setPen(Qt::blue);
+            painter->setPen(QPen(Qt::blue,5));
         }
     }
 

@@ -22,6 +22,7 @@ void Space::paintEvent(QPaintEvent */*event*/) {
             painter.setBrush(Qt::red);
         }
     }
+    painter.setPen(QPen(Qt::black,2));
     painter.drawEllipse(0,0,20,20);
 }
 

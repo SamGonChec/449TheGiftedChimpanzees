@@ -35,6 +35,7 @@ Game::Game(QGraphicsScene *scene) {
                  {1,4,7}, {12,13,14}, {16,19,22}, {9,10,11} };
 
     //Adding board widget to scene
+    scene->setBackgroundBrush(QBrush(Qt::darkGray));
     board = new Board;
     scene->addWidget(board);
 
