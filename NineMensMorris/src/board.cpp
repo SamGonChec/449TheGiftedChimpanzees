@@ -13,7 +13,7 @@ void Board::paintEvent(QPaintEvent */*event*/) {
     painter.setPen(QPen(Qt::black,5));
     painter.drawRect(QRect(50, 0, 700, 670));
     //Outer square
-    chooseLineColor(&painter, 1);
+    chooseLineColor(&painter, 0);
     painter.drawLine(100,650,100,50);
     chooseLineColor(&painter, 1);
     painter.drawLine(100,50,700,50);
