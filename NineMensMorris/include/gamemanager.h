@@ -18,10 +18,12 @@ public:
     QGraphicsScene tutorialScene;
     QGraphicsView view;
     Game *game;
+    SinglePlayerGame *computerGame;
     GameManager();
 private slots:
     void switchTutorialScreen();
     void switchTwoPlayerMode();
+    void switchComputerPlayerMode();
 
 };
 
