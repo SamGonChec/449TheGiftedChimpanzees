@@ -1,7 +1,7 @@
 #ifndef PIECE_H
 #define PIECE_H
 
-#include "space.h"
+#include "include/space.h"
 
 class Piece : public QWidget {
     Q_OBJECT
@@ -17,6 +17,10 @@ public:
     void setCaptured(bool value) { captured = value; }
     bool isCaptured() { return captured; }
     bool isInPlay() { return inPlay; }
+
+    //Computer Player Functions
+    void computerPlayerSelect() { emit clickSelect(this); }
+    void computerPlayerCapture() { emit clickCapture(this); }
 
 private:
     Space *inSpace;

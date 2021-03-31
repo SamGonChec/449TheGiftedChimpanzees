@@ -1,9 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include "space.h"
-#include "piece.h"
-#include "board.h"
+#include "include/space.h"
+#include "include/piece.h"
+#include "include/board.h"
 
 #include <vector>
 #include <QObject>
@@ -34,7 +34,7 @@ public:
     void setPlayerTurnText(bool whitePiece);
     void setInstructionText(int turnNumber, bool captureMode = false);
 
-    void checkForNewMill();
+    virtual void checkForNewMill();
     void checkForFlying();
     void checkForPieceVictory();
     void checkForMovesVictory();
@@ -42,13 +42,13 @@ public:
 
     void selectPiece(Piece *piece);
     void deselectPiece(Piece *piece);
-    void enableSelectPiece();
+    virtual void enableSelectPiece();
     void disableSelectPiece();
-    void enableCapturePiece();
+    virtual void enableCapturePiece();
     void disableCapturePiece();
 
     void endTurn(Piece *piece);
-    void startNewTurn();
+    virtual void startNewTurn();
 
     //Functions for testing
     Space *getSpace(int spaceIndex) { return spaceList[spaceIndex]; }
@@ -62,7 +62,7 @@ public:
     bool testBlackVictory() { return blackVictory; }
     void endPhaseOne();
 
-private:
+protected:
     QGraphicsScene *scene;
     Board *board;
     bool whiteTurn;
@@ -87,8 +87,6 @@ private:
     QGraphicsTextItem *whitePieceText;
     QGraphicsTextItem *blackPieceText;
     QGraphicsTextItem *instructionText;
-
-signals:
 
 private slots:
     void pieceCaptureAction(Piece *piece);

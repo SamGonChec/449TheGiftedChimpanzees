@@ -1,4 +1,4 @@
-#include <include/tutorial.h>
+#include "include/tutorial.h"
 
 Tutorial::Tutorial(QGraphicsScene *scene){
     this->scene = scene;

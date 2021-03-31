@@ -1,6 +1,6 @@
 #include "include/gamemanager.h"
 
-GameManager::GameManager(){
+GameManager::GameManager() {
     //setting up the menu scene
     Menu menu(&menuScene);
 
@@ -12,11 +12,11 @@ GameManager::GameManager(){
 
     //Connecting the button to the library signal clicked, along with the slot switchTwoPlayerMode
     connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTutorialScreen()));
+    connect(menu.returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchComputerPlayerMode()));
     connect(menu.returnQuitButton(),SIGNAL(clicked()),qApp,SLOT(quit()));
 }
 
-void GameManager::switchTutorialScreen()
-{
+void GameManager::switchTutorialScreen() {
     Tutorial tutorial(&tutorialScene);
 
     view.setScene(&tutorialScene);
@@ -25,9 +25,14 @@ void GameManager::switchTutorialScreen()
     connect(tutorial.returnPushButton(),SIGNAL(clicked()),this,SLOT(switchTwoPlayerMode()));
 }
 
-void GameManager::switchTwoPlayerMode()
-{
-    //instantiating the game class and scene
+void GameManager::switchTwoPlayerMode() {
+    //instantiating the game with scene
     game = new Game(&gameScene);
+    view.setScene(&gameScene);
+}
+
+void GameManager::switchComputerPlayerMode() {
+    //instantiating the single player game with scene
+    computerGame = new SinglePlayerGame(&gameScene, true);
     view.setScene(&gameScene);
 }

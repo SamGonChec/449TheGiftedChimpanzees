@@ -20,8 +20,9 @@ public:
     QGraphicsScene* scene;
     Menu(QGraphicsScene *scene);
     void mainMenuScreen();
-    QPushButton *returnTwoPlayerPushButton() {return twoPlayerButton;}
-    QPushButton *returnQuitButton() {return quitButton;}
+    QPushButton *returnSinglePlayerPushButton() { return computerButton; }
+    QPushButton *returnTwoPlayerPushButton() { return twoPlayerButton; }
+    QPushButton *returnQuitButton() { return quitButton; }
 protected:
      void mousePressEvent(QGraphicsSceneMouseEvent *event);
 
