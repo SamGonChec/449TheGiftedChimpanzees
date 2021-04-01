@@ -1,19 +1,18 @@
 #include "include/gamemanager.h"
 
 GameManager::GameManager() {
-    //setting up the menu scene
-    Menu menu(&menuScene);
-
-    view.resize(1100,900);
-    view.setScene(&menuScene);
+    //setting up the splash screen scene
+    Splash splash(&splashScene);
     view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    view.resize(1100,900);
+    view.setScene(&splashScene);
     view.show();
 
-    //Connecting the button to the library signal clicked, along with the slot switchTwoPlayerMode
-    connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTutorialScreen()));
-    connect(menu.returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchComputerPlayerMode()));
-    connect(menu.returnQuitButton(),SIGNAL(clicked()),qApp,SLOT(quit()));
+
+
+    //setting up the menu scene
+    QTimer::singleShot(5000, this, SLOT(timerComplete()));
 }
 
 void GameManager::switchTutorialScreen() {
@@ -35,4 +34,15 @@ void GameManager::switchComputerPlayerMode() {
     //instantiating the single player game with scene
     computerGame = new SinglePlayerGame(&gameScene, true);
     view.setScene(&gameScene);
+}
+
+void GameManager::timerComplete(){
+    Menu menu(&menuScene);
+    view.setScene(&menuScene);
+    view.show();
+
+    //Connecting the button to the library signal clicked, along with the slot switchTwoPlayerMode
+    connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTutorialScreen()));
+    connect(menu.returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchComputerPlayerMode()));
+    connect(menu.returnQuitButton(),SIGNAL(clicked()),qApp,SLOT(quit()));
 }

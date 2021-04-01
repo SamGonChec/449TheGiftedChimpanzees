@@ -17,6 +17,7 @@ SOURCES += \
     src/piece.cpp \
     src/singleplayergame.cpp \
     src/space.cpp \
+    src/splash.cpp \
     src/tutorial.cpp
 
 HEADERS += \
@@ -27,6 +28,7 @@ HEADERS += \
     include/piece.h \
     include/singleplayergame.h \
     include/space.h \
+    include/splash.h \
     include/tutorial.h
 
 FORMS +=

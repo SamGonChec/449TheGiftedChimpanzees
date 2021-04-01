@@ -5,7 +5,6 @@
 #include <QGraphicsView>
 #include <QPushButton>
 #include <QWidget>
-#include<QImage>
 #include <QGraphicsPixmapItem>
 #include "include/game.h"
 
