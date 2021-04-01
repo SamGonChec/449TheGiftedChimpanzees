@@ -1,11 +1,10 @@
 #include "include/menu.h"
 
-Menu::Menu(QGraphicsScene *scene){
+Menu::Menu(QGraphicsScene *scene) {
     this->scene = scene;
     mainMenuScreen();
 }
-void Menu::mainMenuScreen()
-{
+void Menu::mainMenuScreen() {
     //Declaring the button and title and background
     QGraphicsTextItem* gameTitle = new QGraphicsTextItem(QString("Nine Mens Morris"));
     QFont titleFont("comic sans MS", 50);
