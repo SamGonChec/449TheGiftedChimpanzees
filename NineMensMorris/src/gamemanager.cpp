@@ -9,9 +9,7 @@ GameManager::GameManager() {
     view.setScene(&splashScene);
     view.show();
 
-
-
-    //setting up the menu scene
+    //switches to the menu scene when splash completed
     QTimer::singleShot(5000, this, SLOT(timerComplete()));
 }
 
