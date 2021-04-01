@@ -1,8 +1,6 @@
 #ifndef SINGLEPLAYERSCREEN_H
 #define SINGLEPLAYERSCREEN_H
 
-#include <QFile>
-#include <QApplication>
 #include <QGraphicsScene>
 #include <QPushButton>
 #include "include/game.h"

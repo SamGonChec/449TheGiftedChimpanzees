@@ -20,6 +20,7 @@ public:
     void checkForNewMill();
 
     void startNewTurn();
+    QPushButton *returnMainMenu() {return menuButton;}
 private:
     bool computerColorWhite;
     std::vector<int> availableSpaces;

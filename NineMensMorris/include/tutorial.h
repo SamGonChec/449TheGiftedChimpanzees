@@ -2,16 +2,11 @@
 #define TUTORIAL_H
 
 #include <QFile>
-#include <QApplication>
 #include <QGraphicsScene>
-#include <QGraphicsRectItem>
-#include <QGraphicsView>
 #include <QPushButton>
-#include <QGraphicsSceneMouseEvent>
-#include <QWidget>
 #include "include/game.h"
 
-class Tutorial : public QObject{
+class Tutorial : public QObject {
     Q_OBJECT
 private:
     QPushButton* tutorialButton;

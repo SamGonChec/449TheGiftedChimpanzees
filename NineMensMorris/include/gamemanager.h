@@ -2,6 +2,7 @@
 #define GAMEMANAGER_H
 
 #include <QObject>
+#include <QApplication>
 #include <QGraphicsScene>
 #include <QGraphicsView>
 #include "include/menu.h"
@@ -10,8 +11,7 @@
 #include "include/singleplayergame.h"
 #include "include/singleplayerscreen.h"
 
-class GameManager : public QObject
-{
+class GameManager : public QObject {
    Q_OBJECT
 public:
     QGraphicsScene menuScene;
@@ -19,7 +19,6 @@ public:
     QGraphicsScene tutorialScene;
     QGraphicsScene singlePlayerScene;
     QGraphicsView view;
-    Menu *returnMenu;
     Game *game;
     SinglePlayerGame *computerGame;
     GameManager();
@@ -30,6 +29,8 @@ private slots:
     void switchComputerPlayerModeBlack();
     void switchSinglePlayerScreen();
     void switchBackToMainMenu();
+    void switchBackToMainMenuSinglePlayer();
+    void switchBackToMainMenuTwoPlayer();
 };
 
 #endif // GAMEMANAGER_H

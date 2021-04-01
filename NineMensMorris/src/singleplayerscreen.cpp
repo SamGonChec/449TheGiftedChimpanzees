@@ -13,7 +13,7 @@ void SinglePlayerScreen::displaySinglePlayerScreen() {
     blackButton = new QPushButton(QString("Black"),NULL);
 
     //declare the choose color text
-    QGraphicsTextItem *chooseColor = scene->addText("Choose the piece color to play");
+    QGraphicsTextItem *chooseColor = scene->addText("Choose Color: ");
     QFont chooseFont("comic sans MS", 14);
     chooseColor->setFont(chooseFont);
     chooseColor->setPos(275,550);
