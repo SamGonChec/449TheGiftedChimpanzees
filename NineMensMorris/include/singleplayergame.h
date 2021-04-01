@@ -4,7 +4,6 @@
 #include "include/game.h"
 #include <stdlib.h>
 #include <time.h>
-#include <QDebug>
 
 class SinglePlayerGame : Game {
 public:
