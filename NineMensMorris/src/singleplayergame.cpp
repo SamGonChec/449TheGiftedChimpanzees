@@ -162,14 +162,6 @@ void SinglePlayerGame::enableCapturePiece() {
     }
 }
 
-//Overrides function to add computer player capture
-void SinglePlayerGame::checkForNewMill() {
-    Game::checkForNewMill();
-    if ((whiteTurn == computerColorWhite) && captureMode) {
-        computerCapture();
-    }
-}
-
 //Overrides function to add computer move functionality
 void SinglePlayerGame::startNewTurn() {
     Game::startNewTurn();
@@ -178,10 +170,18 @@ void SinglePlayerGame::startNewTurn() {
             computerPhaseOneMove();
         } else if ((!whiteFlying && computerColorWhite) || (!blackFlying && !computerColorWhite)) {
             computerPhaseTwoMove();
-        } else {
+        } else if ((whiteFlying && computerColorWhite) || (blackFlying && !computerColorWhite)) {
             computerFlyingMove();
         }
     }
 }
 
-
+void SinglePlayerGame::nextTurn(Piece *piece) {
+    endTurn(piece);
+    checkForNewMill();
+    if (!captureMode) {
+        evaluateVictoryConditions();
+    } else if (whiteTurn == computerColorWhite) {
+        computerCapture();
+    }
+}

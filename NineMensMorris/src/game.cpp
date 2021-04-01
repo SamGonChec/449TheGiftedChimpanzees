@@ -503,7 +503,7 @@ void Game::startNewTurn() {
 
     setTurnCountText(turnNumber);
     setPlayerTurnText(whiteTurn);
-    setInstructionText(turnNumber);
+    setInstructionText(turnNumber, captureMode);
 
     if (!phaseOneComplete) {
         if (turnNumber < 9) {

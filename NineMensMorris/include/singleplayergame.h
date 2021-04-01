@@ -4,6 +4,7 @@
 #include "include/game.h"
 #include <stdlib.h>
 #include <time.h>
+#include <QDebug>
 
 class SinglePlayerGame : Game {
 public:
@@ -17,7 +18,6 @@ public:
 
     void enableSelectPiece();
     void enableCapturePiece();
-    void checkForNewMill();
 
     void startNewTurn();
 private:
@@ -25,6 +25,8 @@ private:
     std::vector<int> availableSpaces;
     std::vector<int> availableSelect;
     std::vector<int> availableCapture;
+private slots:
+    void nextTurn(Piece *piece);
 };
 
 
