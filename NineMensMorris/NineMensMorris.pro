@@ -16,6 +16,7 @@ SOURCES += \
     src/menu.cpp \
     src/piece.cpp \
     src/singleplayergame.cpp \
+    src/singleplayerscreen.cpp \
     src/space.cpp \
     src/tutorial.cpp
 
@@ -26,6 +27,7 @@ HEADERS += \
     include/menu.h \
     include/piece.h \
     include/singleplayergame.h \
+    include/singleplayerscreen.h \
     include/space.h \
     include/tutorial.h
 
