@@ -16,7 +16,6 @@ SOURCES += \
     src/menu.cpp \
     src/piece.cpp \
     src/singleplayergame.cpp \
-    src/singleplayerscreen.cpp \
     src/space.cpp \
     src/tutorial.cpp
 

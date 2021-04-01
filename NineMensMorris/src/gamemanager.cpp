@@ -12,12 +12,21 @@ GameManager::GameManager() {
 
     //Connecting the button to the library signal clicked, along with the slot switchTwoPlayerMode
     connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTutorialScreen()));
-    connect(menu.returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchComputerPlayerMode()));
+    connect(menu.returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchSinglePlayerTutorial()));
     connect(menu.returnQuitButton(),SIGNAL(clicked()),qApp,SLOT(quit()));
 }
+void GameManager::switchSinglePlayerTutorial() {
+    Tutorial tutorial(&tutorialScene, true);
 
+
+    view.setScene(&tutorialScene);
+    view.show();
+
+    connect(tutorial.returnWhiteButton(),SIGNAL(clicked()),this,SLOT(switchComputerPlayerModeWhite()));
+    connect(tutorial.returnBlackButton(),SIGNAL(clicked()),this,SLOT(switchComputerPlayerModeBlack()));
+}
 void GameManager::switchTutorialScreen() {
-    Tutorial tutorial(&tutorialScene);
+    Tutorial tutorial(&tutorialScene,false);
 
     view.setScene(&tutorialScene);
     view.show();
@@ -31,8 +40,14 @@ void GameManager::switchTwoPlayerMode() {
     view.setScene(&gameScene);
 }
 
-void GameManager::switchComputerPlayerMode() {
+void GameManager::switchComputerPlayerModeWhite() {
     //instantiating the single player game with scene
-    computerGame = new SinglePlayerGame(&gameScene, true);
+    computerGame = new SinglePlayerGame(&gameScene,false);
+    view.setScene(&gameScene);
+}
+
+void GameManager::switchComputerPlayerModeBlack() {
+    //instantiating the single player game with scene
+    computerGame = new SinglePlayerGame(&gameScene,true);
     view.setScene(&gameScene);
 }

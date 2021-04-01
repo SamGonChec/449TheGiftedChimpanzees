@@ -23,8 +23,9 @@ public:
 private slots:
     void switchTutorialScreen();
     void switchTwoPlayerMode();
-    void switchComputerPlayerMode();
-
+    void switchComputerPlayerModeWhite();
+    void switchComputerPlayerModeBlack();
+    void switchSinglePlayerTutorial();
 };
 
 #endif // GAMEMANAGER_H
