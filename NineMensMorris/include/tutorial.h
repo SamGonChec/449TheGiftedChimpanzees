@@ -15,21 +15,16 @@ class Tutorial : public QObject{
     Q_OBJECT
 private:
     QPushButton* tutorialButton;
-    QPushButton* whiteButton;
-    QPushButton* blackButton;
-    bool againstComputer;
+    QPushButton* singlePlayerButton;
+    QPushButton* twoPlayerButton;
 public:
     QString tutorialText;
     QGraphicsScene* scene;
-    Tutorial(QGraphicsScene *scene, bool computer);
-    void getTutorialText();
+    Tutorial(QGraphicsScene *scene);
     void tutorialScreen();
     QPushButton *returnPushButton() {return tutorialButton;}
-    QPushButton *returnWhiteButton() {return whiteButton;}
-    QPushButton *returnBlackButton() {return blackButton;}
-protected:
-     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
+    QPushButton *returnSinglePlayerButton() {return singlePlayerButton;}
+    QPushButton *returnTwoPlayerButton() {return twoPlayerButton;}
 };
 
 #endif // TUTORIAL_H

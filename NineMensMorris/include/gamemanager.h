@@ -8,6 +8,7 @@
 #include "include/tutorial.h"
 #include "include/game.h"
 #include "include/singleplayergame.h"
+#include "include/singleplayerscreen.h"
 
 class GameManager : public QObject
 {
@@ -16,7 +17,9 @@ public:
     QGraphicsScene menuScene;
     QGraphicsScene gameScene;
     QGraphicsScene tutorialScene;
+    QGraphicsScene singlePlayerScene;
     QGraphicsView view;
+    Menu *returnMenu;
     Game *game;
     SinglePlayerGame *computerGame;
     GameManager();
@@ -25,7 +28,8 @@ private slots:
     void switchTwoPlayerMode();
     void switchComputerPlayerModeWhite();
     void switchComputerPlayerModeBlack();
-    void switchSinglePlayerTutorial();
+    void switchSinglePlayerScreen();
+    void switchBackToMainMenu();
 };
 
 #endif // GAMEMANAGER_H

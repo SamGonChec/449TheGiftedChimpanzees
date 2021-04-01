@@ -11,27 +11,28 @@ GameManager::GameManager() {
     view.show();
 
     //Connecting the button to the library signal clicked, along with the slot switchTwoPlayerMode
-    connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTutorialScreen()));
-    connect(menu.returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchSinglePlayerTutorial()));
+    connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTwoPlayerMode()));
+    connect(menu.returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchSinglePlayerScreen()));
+    connect(menu.returnTutorialPushButton(), SIGNAL(clicked()), this, SLOT(switchTutorialScreen()));
     connect(menu.returnQuitButton(),SIGNAL(clicked()),qApp,SLOT(quit()));
 }
-void GameManager::switchSinglePlayerTutorial() {
-    Tutorial tutorial(&tutorialScene, true);
 
+void GameManager::switchSinglePlayerScreen() {
+    SinglePlayerScreen singlePlayer(&singlePlayerScene);
 
-    view.setScene(&tutorialScene);
+    view.setScene(&singlePlayerScene);
     view.show();
 
-    connect(tutorial.returnWhiteButton(),SIGNAL(clicked()),this,SLOT(switchComputerPlayerModeWhite()));
-    connect(tutorial.returnBlackButton(),SIGNAL(clicked()),this,SLOT(switchComputerPlayerModeBlack()));
+    connect(singlePlayer.returnWhiteButton(),SIGNAL(clicked()),this,SLOT(switchComputerPlayerModeWhite()));
+    connect(singlePlayer.returnBlackButton(),SIGNAL(clicked()),this,SLOT(switchComputerPlayerModeBlack()));
 }
 void GameManager::switchTutorialScreen() {
-    Tutorial tutorial(&tutorialScene,false);
+    Tutorial tutorial(&tutorialScene);
 
     view.setScene(&tutorialScene);
     view.show();
 
-    connect(tutorial.returnPushButton(),SIGNAL(clicked()),this,SLOT(switchTwoPlayerMode()));
+    connect(tutorial.returnPushButton(),SIGNAL(clicked()),this,SLOT(switchBackToMainMenu()));
 }
 
 void GameManager::switchTwoPlayerMode() {
@@ -50,4 +51,9 @@ void GameManager::switchComputerPlayerModeBlack() {
     //instantiating the single player game with scene
     computerGame = new SinglePlayerGame(&gameScene,true);
     view.setScene(&gameScene);
+}
+
+void GameManager::switchBackToMainMenu() {
+    //set the scene back to the menu scene
+    view.setScene(&menuScene);
 }
