@@ -1,10 +1,12 @@
 #include "include/singleplayerscreen.h"
 
+//constructor for the class single player screen.
 SinglePlayerScreen::SinglePlayerScreen(QGraphicsScene *scene) {
     this->scene = scene;
     displaySinglePlayerScreen();
 }
 
+//Method that displays the scene with a prompt to choose which color to play.
 void SinglePlayerScreen::displaySinglePlayerScreen() {
 
     //Instantiate items
