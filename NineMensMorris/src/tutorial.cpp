@@ -1,13 +1,12 @@
 #include "include/tutorial.h"
 
-Tutorial::Tutorial(QGraphicsScene *scene, bool computer){
+Tutorial::Tutorial(QGraphicsScene *scene, bool computer) {
     this->scene = scene;
     this->againstComputer = computer;
     tutorialScreen();
 }
 
-void Tutorial::tutorialScreen()
-{
+void Tutorial::tutorialScreen() {
     /* Declaring the button, title, and tutorial text */
     QFile file(":/text/tutorial.txt");
     file.open(QFile::ReadOnly | QFile::Text);
@@ -54,8 +53,7 @@ void Tutorial::tutorialScreen()
         //add buttons to the scene
         scene->addWidget(whiteButton);
         scene->addWidget(blackButton);
-    }
-    else {
+    } else {
         //declare button in two players
         tutorialButton = new QPushButton(QString("Continue"),NULL);
         tutorialButton->setFont(buttonFont);

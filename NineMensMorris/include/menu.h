@@ -9,7 +9,7 @@
 #include <QGraphicsPixmapItem>
 #include "include/game.h"
 
-class Menu : public QObject{
+class Menu : public QObject {
     Q_OBJECT
 private:
     QPushButton* twoPlayerButton;
