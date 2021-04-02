@@ -3,8 +3,6 @@
 
 #include <QGraphicsScene>
 #include <QGraphicsView>
-#include <QImage>
-#include <QThread>
 #include <QGraphicsPixmapItem>
 #include "include/game.h"
 
