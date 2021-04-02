@@ -11,6 +11,7 @@
 #include <QLabel>
 #include <QString>
 #include <QFont>
+#include <QPushButton>
 #include <QtWidgets/QGraphicsProxyWidget>
 
 
@@ -19,7 +20,7 @@ class Game : public QObject {
 public:
     Game(QGraphicsScene * scene);
     ~Game();
-
+    QPushButton *menuButton;
     void pieceCleanup(std::vector<Piece*> &pieces);
     void boardCleanup(QGraphicsProxyWidget* proxyBoard);
     void spaceCleanup(std::vector<Space*> &spaces);
@@ -34,7 +35,7 @@ public:
     void setPlayerTurnText(bool whitePiece);
     void setInstructionText(int turnNumber, bool captureMode = false);
 
-    virtual void checkForNewMill();
+    void checkForNewMill();
     void checkForFlying();
     void checkForPieceVictory();
     void checkForMovesVictory();
@@ -62,6 +63,7 @@ public:
     bool testBlackVictory() { return blackVictory; }
     void endPhaseOne();
 
+    QPushButton *returnMainMenu() {return menuButton;}
 protected:
     QGraphicsScene *scene;
     Board *board;
@@ -91,7 +93,7 @@ protected:
 private slots:
     void pieceCaptureAction(Piece *piece);
     void pieceSelectAction(Piece *piece);
-    void nextTurn(Piece *piece);
+    virtual void nextTurn(Piece *piece);
 
 };
 

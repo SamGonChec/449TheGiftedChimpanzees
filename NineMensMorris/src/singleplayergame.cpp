@@ -6,6 +6,12 @@ SinglePlayerGame::SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite) 
     if (computerColorWhite) {
         computerPhaseOneMove();
     }
+    menuButton = new QPushButton(QString("Main Menu"));
+    menuButton->setGeometry(325,700,150,50);
+    QFont buttonFont("comic sans MS", 14);
+    menuButton->setFont(buttonFont);
+    menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(menuButton);
 }
 //Adds unoccupied spaces to available
 void SinglePlayerGame::scanSpaces() {
@@ -162,14 +168,6 @@ void SinglePlayerGame::enableCapturePiece() {
     }
 }
 
-//Overrides function to add computer player capture
-void SinglePlayerGame::checkForNewMill() {
-    Game::checkForNewMill();
-    if ((whiteTurn == computerColorWhite) && captureMode) {
-        computerCapture();
-    }
-}
-
 //Overrides function to add computer move functionality
 void SinglePlayerGame::startNewTurn() {
     Game::startNewTurn();
@@ -178,10 +176,18 @@ void SinglePlayerGame::startNewTurn() {
             computerPhaseOneMove();
         } else if ((!whiteFlying && computerColorWhite) || (!blackFlying && !computerColorWhite)) {
             computerPhaseTwoMove();
-        } else {
+        } else if ((whiteFlying && computerColorWhite) || (blackFlying && !computerColorWhite)) {
             computerFlyingMove();
         }
     }
 }
 
-
+void SinglePlayerGame::nextTurn(Piece *piece) {
+    endTurn(piece);
+    checkForNewMill();
+    if (!captureMode) {
+        evaluateVictoryConditions();
+    } else if (whiteTurn == computerColorWhite) {
+        computerCapture();
+    }
+}

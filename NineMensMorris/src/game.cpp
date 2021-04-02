@@ -1,6 +1,6 @@
 #include "include/game.h"
 
-Game::~Game(){
+Game::~Game() {
     Game::pieceCleanup(whitePieces);
     Game::pieceCleanup(blackPieces);
     Game::spaceCleanup(spaceList);
@@ -134,6 +134,13 @@ Game::Game(QGraphicsScene *scene) {
     blackPieceText->setFont(pieceFont);
     blackPieceText->setPos(780, 180);
     scene->addItem(blackPieceText);
+
+    menuButton = new QPushButton(QString("Main Menu"));
+    menuButton->setGeometry(325,700,150,50);
+    QFont buttonFont("comic sans MS", 14);
+    menuButton->setFont(buttonFont);
+    menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(menuButton);
 }
 
 // Freeing up piece memory at the end of the game
@@ -503,7 +510,7 @@ void Game::startNewTurn() {
 
     setTurnCountText(turnNumber);
     setPlayerTurnText(whiteTurn);
-    setInstructionText(turnNumber);
+    setInstructionText(turnNumber, captureMode);
 
     if (!phaseOneComplete) {
         if (turnNumber < 9) {

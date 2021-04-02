@@ -12,6 +12,7 @@ void Board::paintEvent(QPaintEvent */*event*/) {
     painter.setBrush(QBrush(pix));
     painter.setPen(QPen(Qt::black,5));
     painter.drawRect(QRect(50, 0, 700, 670));
+
     //Outer square
     chooseLineColor(&painter, 0);
     painter.drawLine(100,650,100,50);
@@ -21,6 +22,7 @@ void Board::paintEvent(QPaintEvent */*event*/) {
     painter.drawLine(700,50,700,650);
     chooseLineColor(&painter, 3);
     painter.drawLine(700,650,100,650);
+
     //Middle square
     chooseLineColor(&painter, 4);
     painter.drawLine(200,550,200,150);
@@ -30,6 +32,7 @@ void Board::paintEvent(QPaintEvent */*event*/) {
     painter.drawLine(600,150,600,550);
     chooseLineColor(&painter, 7);
     painter.drawLine(600,550,200,550);
+
     //Inner square
     chooseLineColor(&painter, 8);
     painter.drawLine(300,450,300,250);
@@ -39,6 +42,7 @@ void Board::paintEvent(QPaintEvent */*event*/) {
     painter.drawLine(500,250,500,450);
     chooseLineColor(&painter, 11);
     painter.drawLine(500,450,300,450);
+
     //Crossing lines
     chooseLineColor(&painter, 12);
     painter.drawLine(100,350,300,350);
