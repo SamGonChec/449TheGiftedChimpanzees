@@ -5,8 +5,7 @@ Splash::Splash(QGraphicsScene *scene){
     splashScreen();
 }
 
-void Splash::splashScreen()
-{
+void Splash::splashScreen(){
     // Declaring background image and text.
     QGraphicsTextItem* teamName = new QGraphicsTextItem(QString("The Gifted Chimpanzees"));
     QGraphicsTextItem* secondLine = new QGraphicsTextItem(QString("present:"));
