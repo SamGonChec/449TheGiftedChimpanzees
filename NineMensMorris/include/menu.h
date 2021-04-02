@@ -3,10 +3,7 @@
 
 #include <QGraphicsScene>
 #include <QPushButton>
-<<<<<<< HEAD
 #include <QWidget>
-=======
->>>>>>> master
 #include <QGraphicsPixmapItem>
 #include "include/game.h"
 

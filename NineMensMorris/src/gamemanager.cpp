@@ -83,6 +83,7 @@ void GameManager::switchBackToMainMenuSinglePlayer() {
     delete computerGame;
 }
 
+//this method is specifically for first run to allow the splash screen to be visible
 void GameManager::timerComplete(){
     Menu menu(&menuScene);
     view.setScene(&menuScene);

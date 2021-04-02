@@ -28,17 +28,13 @@ public:
 private slots:
     void switchTutorialScreen();
     void switchTwoPlayerMode();
-<<<<<<< HEAD
-    void switchComputerPlayerMode();
     void timerComplete();
-=======
     void switchComputerPlayerModeWhite();
     void switchComputerPlayerModeBlack();
     void switchSinglePlayerScreen();
     void switchBackToMainMenu();
     void switchBackToMainMenuSinglePlayer();
     void switchBackToMainMenuTwoPlayer();
->>>>>>> master
 };
 
 #endif // GAMEMANAGER_H
