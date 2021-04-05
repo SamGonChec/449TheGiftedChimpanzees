@@ -2,29 +2,24 @@
 #define TUTORIAL_H
 
 #include <QFile>
-#include <QApplication>
 #include <QGraphicsScene>
-#include <QGraphicsRectItem>
-#include <QGraphicsView>
 #include <QPushButton>
-#include <QGraphicsSceneMouseEvent>
-#include <QWidget>
 #include "include/game.h"
 
-class Tutorial : public QObject{
+class Tutorial : public QObject {
     Q_OBJECT
 private:
     QPushButton* tutorialButton;
+    QPushButton* singlePlayerButton;
+    QPushButton* twoPlayerButton;
 public:
     QString tutorialText;
     QGraphicsScene* scene;
     Tutorial(QGraphicsScene *scene);
-    void getTutorialText();
     void tutorialScreen();
     QPushButton *returnPushButton() {return tutorialButton;}
-protected:
-     void mousePressEvent(QGraphicsSceneMouseEvent *event);
-
+    QPushButton *returnSinglePlayerButton() {return singlePlayerButton;}
+    QPushButton *returnTwoPlayerButton() {return twoPlayerButton;}
 };
 
 #endif // TUTORIAL_H
