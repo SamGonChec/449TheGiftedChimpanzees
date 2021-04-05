@@ -66,7 +66,6 @@ void Piece::movePiece(Space *space) {
     pieceAnimation->setStartValue(this->geometry());
     pieceAnimation->setEndValue(QRect(space->x() - 5, space->y() - 5, 31, 31));
     pieceAnimation->start(QAbstractAnimation::DeleteWhenStopped);
-    QTimer::singleShot(5000, this, SLOT(frick()));
 }
 
 void Piece::moved(Space *space) {
