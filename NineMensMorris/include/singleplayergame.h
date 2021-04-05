@@ -17,14 +17,16 @@ public:
 
     void enableSelectPiece();
     void enableCapturePiece();
-    void checkForNewMill();
 
     void startNewTurn();
+    QPushButton *returnMainMenu() {return menuButton;}
 private:
     bool computerColorWhite;
     std::vector<int> availableSpaces;
     std::vector<int> availableSelect;
     std::vector<int> availableCapture;
+private slots:
+    void nextTurn(Piece *piece);
 };
 
 
