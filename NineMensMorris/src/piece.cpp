@@ -64,7 +64,7 @@ void Piece::movePiece(Space *space) {
     pieceAnimation->setDuration(500);
     pieceAnimation->setStartValue(this->geometry());
     pieceAnimation->setEndValue(QRect(space->x() - 5, space->y() - 5, 31, 31));
-    pieceAnimation->start();
+    pieceAnimation->start(QAbstractAnimation::DeleteWhenStopped);
 }
 
 void Piece::moved(Space *space) {
