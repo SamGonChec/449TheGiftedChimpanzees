@@ -18,6 +18,9 @@ void Tutorial::tutorialScreen() {
     QFont tutorialFont("comic sans MS", 10);
     QFont buttonFont("comic sans MS", 14);
 
+    //set background color
+    scene->setBackgroundBrush(QBrush(Qt::darkGray));
+
     //set tutorial text font
     tutorialTitleDisplay->setFont(titleFont);
     tutorialTextDisplay->setFont(tutorialFont);

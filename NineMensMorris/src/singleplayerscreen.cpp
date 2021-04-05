@@ -14,11 +14,14 @@ void SinglePlayerScreen::displaySinglePlayerScreen() {
     whiteButton = new QPushButton(QString("White"),NULL);
     blackButton = new QPushButton(QString("Black"),NULL);
 
+    //set background color
+    scene->setBackgroundBrush(QBrush(Qt::darkGray));
+
     //declare the choose color text
     QGraphicsTextItem *chooseColor = scene->addText("Choose Color: ");
     QFont chooseFont("comic sans MS", 14);
     chooseColor->setFont(chooseFont);
-    chooseColor->setPos(275,550);
+    chooseColor->setPos(325,550);
 
     //set the font for the buttons
     whiteButton->setFont(buttonFont);

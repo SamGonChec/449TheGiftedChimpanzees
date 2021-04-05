@@ -4,7 +4,6 @@
 #include "include/space.h"
 
 #include <QPropertyAnimation>
-#include <QTimer>
 
 class Piece : public QWidget {
     Q_OBJECT

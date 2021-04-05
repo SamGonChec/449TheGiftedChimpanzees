@@ -137,7 +137,7 @@ Game::Game(QGraphicsScene *scene) {
     scene->addItem(blackPieceText);
 
     menuButton = new QPushButton(QString("Main Menu"));
-    menuButton->setGeometry(325,700,150,50);
+    menuButton->setGeometry(325,800,150,50);
     QFont buttonFont("comic sans MS", 14);
     menuButton->setFont(buttonFont);
     menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");

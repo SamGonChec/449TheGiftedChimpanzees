@@ -14,8 +14,6 @@ Piece::Piece(int x, int y, bool white) {
     selected = false;
     captureEnabled = false;
     captured = false;
-
-    pieceAnimation = new QPropertyAnimation(this, "geometry");
 }
 
 void Piece::paintEvent(QPaintEvent */*event*/) {
@@ -62,10 +60,11 @@ void Piece::leaveEvent(QEvent */*event*/) {
 
 void Piece::movePiece(Space *space) {
 /* Animates a piece's movement */
+    pieceAnimation = new QPropertyAnimation(this, "geometry");
     pieceAnimation->setDuration(500);
     pieceAnimation->setStartValue(this->geometry());
     pieceAnimation->setEndValue(QRect(space->x() - 5, space->y() - 5, 31, 31));
-    pieceAnimation->start(QAbstractAnimation::DeleteWhenStopped);
+    pieceAnimation->start();
 }
 
 void Piece::moved(Space *space) {
