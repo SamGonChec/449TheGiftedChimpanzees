@@ -1,5 +1,6 @@
 #include "include/singleplayergame.h"
 
+// Constructor for SinglePlayerGame class
 SinglePlayerGame::SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite) : Game(scene) {
     computerColorWhite = computerIsWhite;
     srand(time(NULL));

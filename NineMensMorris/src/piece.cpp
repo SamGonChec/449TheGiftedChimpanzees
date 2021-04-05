@@ -1,6 +1,7 @@
 #include "include/piece.h"
 
 Piece::Piece(int x, int y, bool white) {
+/* Constructor for Piece class */
     resize(31,31);
     move(x, y);
 
@@ -13,6 +14,8 @@ Piece::Piece(int x, int y, bool white) {
     selected = false;
     captureEnabled = false;
     captured = false;
+
+    pieceAnimation = new QPropertyAnimation(this, "geometry");
 }
 
 void Piece::paintEvent(QPaintEvent */*event*/) {
@@ -57,6 +60,15 @@ void Piece::leaveEvent(QEvent */*event*/) {
     update();
 }
 
+void Piece::movePiece(Space *space) {
+/* Animates a piece's movement */
+    pieceAnimation->setDuration(500);
+    pieceAnimation->setStartValue(this->geometry());
+    pieceAnimation->setEndValue(QRect(space->x() - 5, space->y() - 5, 31, 31));
+    pieceAnimation->start(QAbstractAnimation::DeleteWhenStopped);
+    QTimer::singleShot(5000, this, SLOT(frick()));
+}
+
 void Piece::moved(Space *space) {
 /*Slot to move piece when space clicked and signal turn taken*/
     if (inPlay) {
@@ -64,10 +76,10 @@ void Piece::moved(Space *space) {
     } else {
         inPlay = true;
     }
+    movePiece(space);
     inSpace = space;
     space->setOccupied(true);
     space->setWhite(whitePiece);
-    move(space->x() - 5, space->y() - 5);
     update();
     emit turnTaken(this);
 }

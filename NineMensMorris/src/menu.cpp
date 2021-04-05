@@ -1,6 +1,7 @@
 #include "include/menu.h"
 
 Menu::Menu(QGraphicsScene *scene){
+/* Constructor for Menu class */
     this->scene = scene;
     mainMenuScreen();
 }

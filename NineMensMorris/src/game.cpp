@@ -1,6 +1,7 @@
 #include "include/game.h"
 
-Game::~Game(){
+Game::~Game() {
+/* Destructor for Game class */
     Game::pieceCleanup(whitePieces);
     Game::pieceCleanup(blackPieces);
     Game::spaceCleanup(spaceList);

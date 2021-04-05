@@ -1,6 +1,7 @@
 #include "include/board.h"
 
 Board::Board() {
+/* Constructor for Board class */
     resize(800,800);
     setAttribute(Qt::WA_NoSystemBackground);
 }

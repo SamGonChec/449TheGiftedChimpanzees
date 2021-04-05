@@ -1,6 +1,7 @@
 #include "include/space.h"
 
 Space::Space(int x, int y) {
+/* Constructor for Space class */
     resize(21,21);
     move(x,y);
     setAttribute(Qt::WA_NoSystemBackground);

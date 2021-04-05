@@ -3,10 +3,14 @@
 
 #include "include/space.h"
 
+#include <QPropertyAnimation>
+#include <QTimer>
+
 class Piece : public QWidget {
     Q_OBJECT
 public:
     Piece(int x, int y, bool white = true);
+
     void paintEvent(QPaintEvent * event);
     Space *getSpace() { return inSpace; }
 
@@ -17,6 +21,8 @@ public:
     void setCaptured(bool value) { captured = value; }
     bool isCaptured() { return captured; }
     bool isInPlay() { return inPlay; }
+
+    void movePiece(Space *space);
 
     //Computer Player Functions
     void computerPlayerSelect() { emit clickSelect(this); }
@@ -31,6 +37,7 @@ private:
     bool selected;
     bool captureEnabled;
     bool captured;
+    QPropertyAnimation *pieceAnimation;
 protected:
     void mousePressEvent(QMouseEvent *event);
     void enterEvent(QEvent *event);

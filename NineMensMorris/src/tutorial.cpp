@@ -1,6 +1,7 @@
 #include "include/tutorial.h"
 
 Tutorial::Tutorial(QGraphicsScene *scene){
+/* Constructor for Tutorial class */
     this->scene = scene;
     tutorialScreen();
 }
