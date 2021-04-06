@@ -25,3 +25,6 @@ HEADERS += \
     $$INCDIR/include/board.h \
     $$INCDIR/include/piece.h \
     $$INCDIR/include/space.h \
+
+RESOURCES += \
+    $$INCDIR/src/res.qrc
