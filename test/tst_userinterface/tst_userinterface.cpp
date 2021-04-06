@@ -1,5 +1,13 @@
 #include "tst_userinterface.h"
 
+void UserInterface::testMainMenuAndSplashScene() {
+/*Test that the main menu is the active scene*/
+    GameManager manager;
+    QCOMPARE(manager.testSplashSceneActive(), true);
+    QTest::qWait(5500);
+    QCOMPARE(manager.testMenuSceneActive(), true);
+}
+
 void UserInterface::testOnePlayerScreen() {
 /*Test that the user will be sent to the one player screen*/
     Menu menu(&testScene);

@@ -25,6 +25,10 @@ public:
     Game *game;
     SinglePlayerGame *computerGame;
     GameManager();
+
+    bool testSplashSceneActive() { return view.scene() == &splashScene; }
+    bool testMenuSceneActive() { return view.scene() == &menuScene; }
+
 private slots:
     void switchTutorialScreen();
     void switchTwoPlayerMode();

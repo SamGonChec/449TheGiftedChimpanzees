@@ -6,6 +6,7 @@
 
 #include "include/menu.h"
 #include "include/singleplayergame.h"
+#include "include/gamemanager.h"
 
 class UserInterface : public QObject
 {
@@ -19,6 +20,7 @@ private:
     QGraphicsScene testScene;
 
 private slots:
+    void testMainMenuAndSplashScene();
     void testOnePlayerScreen();
     void testTwoPlayerScreen();
     void testTutorialScreen();
