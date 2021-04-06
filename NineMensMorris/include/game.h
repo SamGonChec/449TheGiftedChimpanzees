@@ -63,6 +63,11 @@ public:
     bool testBlackVictory() { return blackVictory; }
     void endPhaseOne();
 
+    QString testTurnText() { return turnText->toPlainText(); }
+    QString testWhitePieceText() { return whitePieceText->toPlainText(); }
+    QString testBlackPieceText() { return blackPieceText->toPlainText(); }
+    QString testInstructionText() { return instructionText->toPlainText(); }
+
     QPushButton *returnMainMenu() {return menuButton;}
 protected:
     QGraphicsScene *scene;

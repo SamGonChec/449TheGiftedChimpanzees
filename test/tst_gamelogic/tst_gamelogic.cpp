@@ -422,4 +422,49 @@ void GameLogic::testBlackMovesVictory() {
     QCOMPARE(game.testBlackVictory(), true);
 }
 
+void GameLogic::testTurnTextAndPlayerText() {
+/*Test that the player turn and turn number text is correct*/
+    Game game(&testScene);
+    QCOMPARE(game.testWhitePieceText(), QString("White Piece's Turn!"));
+    QCOMPARE(game.testBlackPieceText(), QString(""));
+    QCOMPARE(game.testTurnText(), QString("Turn Number: 1"));
+    QTest::mousePress(game.getSpace(0), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QCOMPARE(game.testWhitePieceText(), QString(""));
+    QCOMPARE(game.testBlackPieceText(), QString("Black's Turn!"));
+    QTest::mousePress(game.getSpace(5), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QCOMPARE(game.testWhitePieceText(), QString("White's Turn!"));
+    QCOMPARE(game.testBlackPieceText(), QString(""));
+    QCOMPARE(game.testTurnText(), QString("Turn Number: 2"));
+}
+
+void GameLogic::testInstructionText() {
+/*Test that the instruction text is correct*/
+    Game game(&testScene);
+    QCOMPARE(game.testInstructionText(), QString("Place your pieces on the board!"));
+    //Creating a mill to check if the mill text is correct
+    QTest::mousePress(game.getSpace(0), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(5), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(1), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(8), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(2), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QCOMPARE(game.testInstructionText(), QString("A mill has been formed! Remove an opponent's piece."));
+    //Placing all the pieces on the board to advance to second phase to check if the move text is correct
+    QTest::mousePress(game.getBlackPiece(1), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(4), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(3), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(7), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(12), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(13), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(14), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(15), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(16), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(17), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(18), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(19), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(20), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QTest::mousePress(game.getSpace(21), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
+    QCOMPARE(game.testTurnText(), QString("Turn Number: 10"));
+    QCOMPARE(game.testInstructionText(), QString("Move your pieces to form a mill!"));
+}
+
 QTEST_MAIN(GameLogic)

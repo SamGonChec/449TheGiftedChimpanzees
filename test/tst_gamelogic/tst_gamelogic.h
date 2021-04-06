@@ -59,5 +59,8 @@ private slots:
     //AC 7.6
     void testBlackMovesVictory();
 
+    void testTurnTextAndPlayerText();
+    void testInstructionText();
+
 };
 #endif // TST_GAMELOGIC_H
