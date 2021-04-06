@@ -8,12 +8,15 @@
 class SinglePlayerGame : Game {
 public:
     SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite);
-
+    std::vector<int> possibleBlock;
+    std::vector<int> possibleMill;
     void scanSpaces();
     void computerPhaseOneMove();
     void computerPhaseTwoMove();
     void computerFlyingMove();
     void computerCapture();
+    void priorityChoice();
+    void priorityScan();
 
     void enableSelectPiece();
     void enableCapturePiece();

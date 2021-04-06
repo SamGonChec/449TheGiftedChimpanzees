@@ -25,6 +25,50 @@ void SinglePlayerGame::scanSpaces() {
     }
 }
 
+void SinglePlayerGame::priorityChoice(){
+
+    // Going to want to prioritize mills over blocks
+    if (!possibleMill.empty()){
+        // pick spot at possibleMill[0]
+    } else if (!possibleBlock.empty()){
+        // pick spot at possibleBlock[0]
+    } else {
+        scanSpaces();
+        int randIndex = rand() % availableSpaces.size();
+        spaceList[availableSpaces[randIndex]]->computerClickSpace();
+    }
+}
+
+void SinglePlayerGame::priorityScan() {
+    unsigned int i;
+    unsigned int j;
+    unsigned int blackCounter;
+    unsigned int whiteCounter;
+    unsigned int emptyIndex;
+
+    for (i = 0; i < millList.size(); i++){
+        blackCounter = 0;
+        whiteCounter = 0;
+        for (j = 0; j < 3; j++){
+            if (spaceList[millList[i][j]]->hasWhitePiece() && spaceList[millList[i][j]]->isOccupied()){
+                whiteCounter++;
+            } else if (!spaceList[millList[i][j]]->hasWhitePiece() && spaceList[millList[i][j]]->isOccupied()){
+                blackCounter++;
+            } else{
+              emptyIndex = millList[i][j];
+            }
+            if (whiteCounter == 2){
+                (computerColorWhite) ? possibleMill.push_back(emptyIndex) : possibleBlock.push_back(emptyIndex);
+            }
+            if (blackCounter == 2) {
+                (!computerColorWhite) ? possibleMill.push_back(emptyIndex) : possibleBlock.push_back(emptyIndex);
+            }
+        }
+    }
+}
+
+
+
 //Chooses an available space and moves in first phase
 void SinglePlayerGame::computerPhaseOneMove() {
     scanSpaces();
