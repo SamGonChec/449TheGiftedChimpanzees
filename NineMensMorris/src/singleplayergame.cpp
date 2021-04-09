@@ -44,23 +44,23 @@ void SinglePlayerGame::priorityScan() {
     unsigned int j;
     unsigned int blackCounter;
     unsigned int whiteCounter;
-    unsigned int emptyIndex;
+    int emptyIndex = -1;
 
     for (i = 0; i < millList.size(); i++){
         blackCounter = 0;
         whiteCounter = 0;
         for (j = 0; j < 3; j++){
-            if (spaceList[millList[i][j]]->hasWhitePiece() && spaceList[millList[i][j]]->isOccupied()){
+            if (spaceList[millList[i][j]]->hasWhitePiece()){
                 whiteCounter++;
-            } else if (!spaceList[millList[i][j]]->hasWhitePiece() && spaceList[millList[i][j]]->isOccupied()){
+            } else if (spaceList[millList[i][j]]->hasBlackPiece()){
                 blackCounter++;
             } else{
               emptyIndex = millList[i][j];
             }
-            if (whiteCounter == 2){
+            if (whiteCounter == 2 && emptyIndex != -1){
                 (computerColorWhite) ? possibleMill.push_back(emptyIndex) : possibleBlock.push_back(emptyIndex);
             }
-            if (blackCounter == 2) {
+            if (blackCounter == 2 && emptyIndex != -1) {
                 (!computerColorWhite) ? possibleMill.push_back(emptyIndex) : possibleBlock.push_back(emptyIndex);
             }
         }
