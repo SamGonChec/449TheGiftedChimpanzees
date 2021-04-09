@@ -25,30 +25,24 @@ void SinglePlayerGame::scanSpaces() {
     }
 }
 
-void SinglePlayerGame::priorityChoice(){
 
-    // Going to want to prioritize mills over blocks
-    if (!possibleMill.empty()){
-        // pick spot at possibleMill[0]
-    } else if (!possibleBlock.empty()){
-        // pick spot at possibleBlock[0]
-    } else {
-        scanSpaces();
-        int randIndex = rand() % availableSpaces.size();
-        spaceList[availableSpaces[randIndex]]->computerClickSpace();
-    }
-}
-
+// Scans the board for priority population
 void SinglePlayerGame::priorityScan() {
     unsigned int i;
     unsigned int j;
     unsigned int blackCounter;
     unsigned int whiteCounter;
-    int emptyIndex = -1;
-
+    int emptyIndex;
+    
+    // Clears the vectors for repopulation
+    possibleMill.clear();
+    possibleBlock.clear();
+    
+    // Scans the board to find possible mills and blocks
     for (i = 0; i < millList.size(); i++){
         blackCounter = 0;
         whiteCounter = 0;
+        emptyIndex = -1;
         for (j = 0; j < 3; j++){
             if (spaceList[millList[i][j]]->hasWhitePiece()){
                 whiteCounter++;
@@ -68,12 +62,19 @@ void SinglePlayerGame::priorityScan() {
 }
 
 
-
 //Chooses an available space and moves in first phase
 void SinglePlayerGame::computerPhaseOneMove() {
-    scanSpaces();
-    int randIndex = rand() % availableSpaces.size();
-    spaceList[availableSpaces[randIndex]]->computerClickSpace();
+    priorityScan();
+    // Going to want to prioritize mills over blocks
+    if (!possibleMill.empty()){
+        spaceList[possibleMill[0]]->computerClickSpace();
+    } else if (!possibleBlock.empty()){
+        spaceList[possibleBlock[0]]->computerClickSpace();
+    } else {
+        scanSpaces();
+        int randIndex = rand() % availableSpaces.size();
+        spaceList[availableSpaces[randIndex]]->computerClickSpace();
+    }
 }
 
 //Chooses a piece and moves to an open space
