@@ -16,8 +16,6 @@ public:
     void computerFlyingMove();
     void computerCapture();
     void priorityChoice();
-    void priorityScan();
-
     void enableSelectPiece();
     void enableCapturePiece();
 

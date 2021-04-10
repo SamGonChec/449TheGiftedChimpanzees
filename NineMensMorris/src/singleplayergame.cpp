@@ -81,6 +81,7 @@ void SinglePlayerGame::computerPhaseOneMove() {
 void SinglePlayerGame::computerPhaseTwoMove() {
     unsigned int i;
     bool validMove = false;
+    priorityScan();
     Piece *chosenPiece;
     //Loops until a piece with an open adjacent space is selected
     while (!validMove) {
