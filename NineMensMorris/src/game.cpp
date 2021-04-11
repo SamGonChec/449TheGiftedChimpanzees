@@ -41,30 +41,30 @@ Game::Game(QGraphicsScene *scene) {
     scene->addWidget(board);
 
     //Adding spaces
-    spaceList.push_back(new Space(90,640));  //Space A1
-    spaceList.push_back(new Space(90,340));  //Space A4
-    spaceList.push_back(new Space(90,40));   //Space A7
-    spaceList.push_back(new Space(190,540)); //Space B2
-    spaceList.push_back(new Space(190,340)); //Space B4
-    spaceList.push_back(new Space(190,140)); //Space B6
-    spaceList.push_back(new Space(290,440)); //Space C3
-    spaceList.push_back(new Space(290,340)); //Space C4
-    spaceList.push_back(new Space(290,240)); //Space C5
-    spaceList.push_back(new Space(390,640)); //Space D1
-    spaceList.push_back(new Space(390,540)); //Space D2
-    spaceList.push_back(new Space(390,440)); //Space D3
-    spaceList.push_back(new Space(390,240)); //Space D5
-    spaceList.push_back(new Space(390,140)); //Space D6
-    spaceList.push_back(new Space(390,40));  //Space D7
-    spaceList.push_back(new Space(490,440)); //Space E3
-    spaceList.push_back(new Space(490,340)); //Space E4
-    spaceList.push_back(new Space(490,240)); //Space E5
-    spaceList.push_back(new Space(590,540)); //Space F2
-    spaceList.push_back(new Space(590,340)); //Space F4
-    spaceList.push_back(new Space(590,140)); //Space F6
-    spaceList.push_back(new Space(690,640)); //Space G1
-    spaceList.push_back(new Space(690,340)); //Space G4
-    spaceList.push_back(new Space(690,40));  //Space G7
+    spaceList.push_back(new Space(90,640));  //Space A1, index 0
+    spaceList.push_back(new Space(90,340));  //Space A4, index 1
+    spaceList.push_back(new Space(90,40));   //Space A7, index 2
+    spaceList.push_back(new Space(190,540)); //Space B2, index 3
+    spaceList.push_back(new Space(190,340)); //Space B4, index 4
+    spaceList.push_back(new Space(190,140)); //Space B6, index 5
+    spaceList.push_back(new Space(290,440)); //Space C3, index 6
+    spaceList.push_back(new Space(290,340)); //Space C4, index 7
+    spaceList.push_back(new Space(290,240)); //Space C5, index 8
+    spaceList.push_back(new Space(390,640)); //Space D1, index 9
+    spaceList.push_back(new Space(390,540)); //Space D2, index 10
+    spaceList.push_back(new Space(390,440)); //Space D3, index 11
+    spaceList.push_back(new Space(390,240)); //Space D5, index 12
+    spaceList.push_back(new Space(390,140)); //Space D6, index 13
+    spaceList.push_back(new Space(390,40));  //Space D7, index 14
+    spaceList.push_back(new Space(490,440)); //Space E3, index 15
+    spaceList.push_back(new Space(490,340)); //Space E4, index 16
+    spaceList.push_back(new Space(490,240)); //Space E5, 17
+    spaceList.push_back(new Space(590,540)); //Space F2, 18
+    spaceList.push_back(new Space(590,340)); //Space F4, 19
+    spaceList.push_back(new Space(590,140)); //Space F6, 20
+    spaceList.push_back(new Space(690,640)); //Space G1, 21
+    spaceList.push_back(new Space(690,340)); //Space G4, 22
+    spaceList.push_back(new Space(690,40));  //Space G7, 23
 
     for (i = 0; i < spaceList.size(); i++) {
         scene->addWidget(spaceList[i]);

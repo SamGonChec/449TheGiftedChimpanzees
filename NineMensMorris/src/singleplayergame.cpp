@@ -77,24 +77,44 @@ void SinglePlayerGame::computerPhaseOneMove() {
     }
 }
 
+void SinglePlayerGame::computerPhaseTwoPriority(std::vector<std::vector<int>> &adjacentSpaces){
+    unsigned int i;
+    for (i = 0; i < availableSelect.size(); i++){
+        adjacentSpaces.push_back(adjacentList[availableSelect[i]]);
+    }
+}
+
+void SinglePlayerGame::computerIntersectionFind(std::vector<std::vector<int>> &adjacentSpaces){
+    unsigned int i;
+    unsigned int j;
+    if (!possibleMill.empty()){
+        for (i = 0; i < adjacentSpaces.size(); i++){
+
+        }
+    }
+}
+
 //Chooses a piece and moves to an open space
 void SinglePlayerGame::computerPhaseTwoMove() {
     unsigned int i;
+    std::vector<std::vector<int>> adjacentSpaces;
+    computerPhaseTwoPriority(adjacentSpaces);
     bool validMove = false;
     priorityScan();
     Piece *chosenPiece;
     //Loops until a piece with an open adjacent space is selected
     while (!validMove) {
         //Choosing a piece
-        int randIndex = rand() % availableSelect.size();
-        int pieceIndex = availableSelect[randIndex];
-        if (computerColorWhite) {
+        //int randIndex = rand() % availableSelect.size();
+        //int pieceIndex = availableSelect[randIndex];
+        /*if (computerColorWhite) {
             chosenPiece = whitePieces[pieceIndex];
         } else {
             chosenPiece = blackPieces[pieceIndex];
-        }
+        }*/
         //Choosing a space to move to
         availableSpaces.clear();
+        computerPhaseTwoPriority(adjacentSpaces);
         int startSpaceIndex = getSpaceIndex(chosenPiece->getSpace());
         for (i = 0; i < adjacentList[startSpaceIndex].size(); i++) {
             if (!spaceList[adjacentList[startSpaceIndex][i]]->isOccupied()) {

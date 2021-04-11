@@ -15,7 +15,9 @@ public:
     void computerPhaseTwoMove();
     void computerFlyingMove();
     void computerCapture();
-    void priorityChoice();
+    void priorityScan();
+    void computerPhaseTwoPriority(std::vector<std::vector<int>> &adjacentSpaces);
+    void computerIntersectionFind(std::vector<std::vector<int>> &adjacentSpaces);
     void enableSelectPiece();
     void enableCapturePiece();
 
