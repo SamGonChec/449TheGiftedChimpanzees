@@ -28,6 +28,7 @@ private:
     std::vector<int> availableSpaces;
     std::vector<int> availableSelect;
     std::vector<int> availableCapture;
+    std::vector<int> priorityList;
 private slots:
     void nextTurn(Piece *piece);
 };
