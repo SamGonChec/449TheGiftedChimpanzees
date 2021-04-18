@@ -7,8 +7,8 @@
 
 class SinglePlayerGame : Game {
 public:
-    SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite);
 
+    SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite);
     void scanSpaces();
     void computerPhaseOneMove();
     void computerPhaseTwoMove();
@@ -20,6 +20,8 @@ public:
 
     void startNewTurn();
     QPushButton *returnMainMenu() {return menuButton;}
+    QPushButton *returnSurrenderButton() {return surrenderButton;}
+    QPushButton *returnPlayAgainButton() {return playAgainButton;}
 private:
     bool computerColorWhite;
     std::vector<int> availableSpaces;

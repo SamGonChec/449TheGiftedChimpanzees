@@ -7,6 +7,7 @@ Game::~Game() {
     Game::spaceCleanup(spaceList);
     Game::textItemCleanup();
     scene->removeItem(board->graphicsProxyWidget());
+    scene->clear();
 }
 
 Game::Game(QGraphicsScene *scene) {
@@ -137,11 +138,19 @@ Game::Game(QGraphicsScene *scene) {
     scene->addItem(blackPieceText);
 
     menuButton = new QPushButton(QString("Main Menu"));
+    playAgainButton = new QPushButton(QString("Play Again?"));
+
     menuButton->setGeometry(325,800,150,50);
-    QFont buttonFont("comic sans MS", 14);
+    playAgainButton->setGeometry(325,750,150,50);
+    buttonFont = QFont("comic sans MS", 14);
+
     menuButton->setFont(buttonFont);
+    playAgainButton->setFont(buttonFont);
+
     menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    playAgainButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     scene->addWidget(menuButton);
+
 }
 
 // Freeing up piece memory at the end of the game
@@ -364,8 +373,10 @@ void Game::evaluateVictoryConditions() {
     }
     if (whiteVictory) {
         instructionText->setPlainText("White Wins!");
+        scene->addWidget(playAgainButton);
     } else if (blackVictory) {
         instructionText->setPlainText("Black Wins!");
+        scene->addWidget(playAgainButton);
     }
     else {
         startNewTurn();
@@ -587,3 +598,14 @@ void Game::nextTurn(Piece *piece) {
         evaluateVictoryConditions();
     }
 }
+
+//surrenders game method, stops the game and allows for Computer to win
+void Game::surrenderGame() {
+    disableSelectPiece();
+    if(whiteTurn) {
+        blackVictory = true;
+    } else {
+        whiteVictory = true;
+    }
+    evaluateVictoryConditions();
+};

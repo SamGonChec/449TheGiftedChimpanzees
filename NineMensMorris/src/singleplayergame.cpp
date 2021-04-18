@@ -8,11 +8,28 @@ SinglePlayerGame::SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite) 
         computerPhaseOneMove();
     }
     menuButton = new QPushButton(QString("Main Menu"));
-    menuButton->setGeometry(325,800,150,50);
-    QFont buttonFont("comic sans MS", 14);
+    playAgainButton = new QPushButton(QString("Play Again?"));
+    surrenderButton = new QPushButton(QString("Surrender"));
+    buttonFont = QFont("comic sans MS", 14);
+
     menuButton->setFont(buttonFont);
+    surrenderButton->setFont(buttonFont);
+    playAgainButton->setFont(buttonFont);
+
     menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    playAgainButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    surrenderButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+
+    surrenderButton->setGeometry(325,750,150,50);
+    menuButton->setGeometry(325,800,150,50);
+    playAgainButton->setGeometry(475,750,150,50);
+
+
     scene->addWidget(menuButton);
+    scene->addWidget(surrenderButton);
+    if (!whiteVictory || !blackVictory) {
+        connect(surrenderButton,SIGNAL(clicked()),this,SLOT(surrenderGame()));
+    }
 }
 //Adds unoccupied spaces to available
 void SinglePlayerGame::scanSpaces() {
@@ -192,3 +209,5 @@ void SinglePlayerGame::nextTurn(Piece *piece) {
         computerCapture();
     }
 }
+
+

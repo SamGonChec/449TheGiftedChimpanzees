@@ -35,6 +35,8 @@ private slots:
     void switchBackToMainMenu();
     void switchBackToMainMenuSinglePlayer();
     void switchBackToMainMenuTwoPlayer();
+    void switchToSinglePlayerPlayAgain();
+    void switchToTwoPlayerPlayAgain();
 };
 
 #endif // GAMEMANAGER_H

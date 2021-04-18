@@ -21,16 +21,21 @@ public:
     Game(QGraphicsScene * scene);
     ~Game();
     QPushButton *menuButton;
+    QPushButton *surrenderButton;
+    QPushButton *playAgainButton;
+    QFont buttonFont;
     void pieceCleanup(std::vector<Piece*> &pieces);
     void boardCleanup(QGraphicsProxyWidget* proxyBoard);
     void spaceCleanup(std::vector<Space*> &spaces);
     void textItemCleanup();
+
 
     int getSpaceIndex(Space *space);
     void setAdjacentSpaces(Piece *piece, bool value);
     void setAllSpaceValidity(bool value);
     bool pieceInMill(Piece *piece);
 
+    void playAgain();
     void setTurnCountText(int turn);
     void setPlayerTurnText(bool whitePiece);
     void setInstructionText(int turnNumber, bool captureMode = false);
@@ -64,6 +69,8 @@ public:
     void endPhaseOne();
 
     QPushButton *returnMainMenu() {return menuButton;}
+    QPushButton *returnSurrenderButton() {return surrenderButton;}
+    QPushButton *returnPlayAgainButton() {return playAgainButton;}
 protected:
     QGraphicsScene *scene;
     Board *board;
@@ -94,7 +101,7 @@ private slots:
     void pieceCaptureAction(Piece *piece);
     void pieceSelectAction(Piece *piece);
     virtual void nextTurn(Piece *piece);
-
+    void surrenderGame();
 };
 
 #endif // GAME_H
