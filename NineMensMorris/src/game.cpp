@@ -137,11 +137,22 @@ Game::Game(QGraphicsScene *scene) {
     scene->addItem(blackPieceText);
 
     menuButton = new QPushButton(QString("Main Menu"));
+    forfeitButton = new QPushButton(QString("Forfeit"));
+    playAgainButton = new QPushButton(QString("Play Again?"));
+    forfeitButton->setGeometry(325,750,150,50);
+    playAgainButton->setGeometry(325,750,150,50);
     menuButton->setGeometry(325,800,150,50);
+
     QFont buttonFont("comic sans MS", 14);
     menuButton->setFont(buttonFont);
+    forfeitButton->setFont(buttonFont);
+    playAgainButton->setFont(buttonFont);
     menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    forfeitButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    playAgainButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(forfeitButton);
     scene->addWidget(menuButton);
+    connect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeitAgainstComputer()));
 }
 
 // Freeing up piece memory at the end of the game
@@ -364,8 +375,12 @@ void Game::evaluateVictoryConditions() {
     }
     if (whiteVictory) {
         instructionText->setPlainText("White Wins!");
+        scene->removeItem(forfeitButton->graphicsProxyWidget());
+        scene->addWidget(playAgainButton);
     } else if (blackVictory) {
         instructionText->setPlainText("Black Wins!");
+        scene->removeItem(forfeitButton->graphicsProxyWidget());
+        scene->addWidget(playAgainButton);
     }
     else {
         startNewTurn();
@@ -586,4 +601,14 @@ void Game::nextTurn(Piece *piece) {
     if (!captureMode) {
         evaluateVictoryConditions();
     }
+}
+void Game::forfeitAgainstComputer() {
+    disableSelectPiece();
+    disableCapturePiece();
+    if (whiteTurn) {
+        blackVictory = true;
+    } else {
+        whiteVictory = true;
+    }
+    evaluateVictoryConditions();
 }
