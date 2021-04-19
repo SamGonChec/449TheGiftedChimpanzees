@@ -17,7 +17,7 @@ public:
 
     void enableSelectPiece();
     void enableCapturePiece();
-
+    void forfeit();
     void startNewTurn();
     QPushButton *returnMainMenu() {return menuButton;}
     QPushButton *returnPlayAgainButton() {return playAgainButton;}

@@ -186,3 +186,11 @@ void SinglePlayerGame::nextTurn(Piece *piece) {
         computerCapture();
     }
 }
+
+void SinglePlayerGame::forfeit() {
+    if(computerColorWhite) {
+        whiteVictory = true;
+    } else {
+        blackVictory = true;
+    }
+}

@@ -156,7 +156,7 @@ Game::Game(QGraphicsScene *scene) {
 
     scene->addWidget(forfeitButton);
     scene->addWidget(menuButton);
-    connect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeitAgainstComputer()));
+    connect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
 }
 
 // Freeing up piece memory at the end of the game
@@ -606,7 +606,7 @@ void Game::nextTurn(Piece *piece) {
         evaluateVictoryConditions();
     }
 }
-void Game::forfeitAgainstComputer() {
+void Game::forfeit() {
     disableSelectPiece();
     disableCapturePiece();
     if (whiteTurn) {

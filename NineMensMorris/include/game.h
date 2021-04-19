@@ -104,7 +104,7 @@ private slots:
     void pieceCaptureAction(Piece *piece);
     void pieceSelectAction(Piece *piece);
     virtual void nextTurn(Piece *piece);
-    void forfeitAgainstComputer();
+    void forfeit();
 };
 
 #endif // GAME_H
