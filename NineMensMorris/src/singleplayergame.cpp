@@ -65,7 +65,9 @@ void SinglePlayerGame::priorityScan() {
 //Chooses an available space and moves in first phase
 void SinglePlayerGame::computerPhaseOneMove() {
     priorityScan();
-    // Going to want to prioritize mills over blocks
+    /* Going to want to prioritize mills over blocks.
+     * If no mill, find blocks. If no blocks or mills,
+     * find a random space*/
     if (!possibleMill.empty()){
         spaceList[possibleMill[0]]->computerClickSpace();
     } else if (!possibleBlock.empty()){
