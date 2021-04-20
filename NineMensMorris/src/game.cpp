@@ -7,6 +7,8 @@ Game::~Game() {
     Game::spaceCleanup(spaceList);
     Game::textItemCleanup();
     scene->removeItem(board->graphicsProxyWidget());
+    buttonCleanup();
+    delete board;
 }
 
 Game::Game(QGraphicsScene *scene) {
@@ -180,6 +182,15 @@ void Game::spaceCleanup(std::vector<Space*> &spaces){
     spaces.clear();
 }
 
+void Game::buttonCleanup() {
+    scene->removeItem(forfeitButton->graphicsProxyWidget());
+    scene->removeItem(menuButton->graphicsProxyWidget());
+    scene->removeItem(playAgainButton->graphicsProxyWidget());
+    delete forfeitButton;
+    delete menuButton;
+    delete playAgainButton;
+}
+
 void Game::textItemCleanup() {
 /* Remove text items from memory at the end of the game */
     scene->removeItem(titleText);
@@ -187,6 +198,11 @@ void Game::textItemCleanup() {
     scene->removeItem(turnText);
     scene->removeItem(whitePieceText);
     scene->removeItem(blackPieceText);
+    delete blackPieceText;
+    delete whitePieceText;
+    delete titleText;
+    delete instructionText;
+    delete turnText;
 }
 
 int Game::getSpaceIndex(Space *space) {
@@ -379,11 +395,11 @@ void Game::evaluateVictoryConditions() {
     }
     if (whiteVictory) {
         instructionText->setPlainText("White Wins!");
-        scene->removeItem(forfeitButton->graphicsProxyWidget());
+
         scene->addWidget(playAgainButton);
     } else if (blackVictory) {
         instructionText->setPlainText("Black Wins!");
-        scene->removeItem(forfeitButton->graphicsProxyWidget());
+
         scene->addWidget(playAgainButton);
     }
     else {
@@ -606,6 +622,7 @@ void Game::nextTurn(Piece *piece) {
         evaluateVictoryConditions();
     }
 }
+
 void Game::forfeit() {
     disableSelectPiece();
     disableCapturePiece();

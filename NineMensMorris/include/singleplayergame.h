@@ -29,7 +29,6 @@ private:
     std::vector<int> availableCapture;
 private slots:
     void nextTurn(Piece *piece);
-    void forfeit();
 };
 
 
