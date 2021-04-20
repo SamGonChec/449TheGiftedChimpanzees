@@ -7,7 +7,7 @@ Game::~Game() {
     Game::spaceCleanup(spaceList);
     Game::textItemCleanup();
     scene->removeItem(board->graphicsProxyWidget());
-    buttonCleanup();
+    Game::buttonCleanup();
     delete board;
 }
 
@@ -182,6 +182,7 @@ void Game::spaceCleanup(std::vector<Space*> &spaces){
     spaces.clear();
 }
 
+//Freeing the button memory at the end of game
 void Game::buttonCleanup() {
     scene->removeItem(forfeitButton->graphicsProxyWidget());
     scene->removeItem(menuButton->graphicsProxyWidget());
@@ -623,6 +624,7 @@ void Game::nextTurn(Piece *piece) {
     }
 }
 
+//forfeit method that depending on the turn the opponent wins, for single player the computer wins
 void Game::forfeit() {
     disableSelectPiece();
     disableCapturePiece();
