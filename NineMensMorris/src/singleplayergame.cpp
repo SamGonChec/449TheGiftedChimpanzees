@@ -7,6 +7,7 @@ SinglePlayerGame::SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite) 
     if (computerColorWhite) {
         computerPhaseOneMove();
     }
+    connect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
 }
 //Adds unoccupied spaces to available
 void SinglePlayerGame::scanSpaces() {
@@ -188,9 +189,12 @@ void SinglePlayerGame::nextTurn(Piece *piece) {
 }
 
 void SinglePlayerGame::forfeit() {
+    disableCapturePiece();
+    disableSelectPiece();
     if(computerColorWhite) {
         whiteVictory = true;
     } else {
         blackVictory = true;
     }
+    evaluateVictoryConditions();
 }

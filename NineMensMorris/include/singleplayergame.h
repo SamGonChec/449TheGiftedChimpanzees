@@ -17,9 +17,10 @@ public:
 
     void enableSelectPiece();
     void enableCapturePiece();
-    void forfeit();
+
     void startNewTurn();
     QPushButton *returnMainMenu() {return menuButton;}
+    QPushButton *returnForfeitButton() {return forfeitButton;}
     QPushButton *returnPlayAgainButton() {return playAgainButton;}
 private:
     bool computerColorWhite;
@@ -28,6 +29,7 @@ private:
     std::vector<int> availableCapture;
 private slots:
     void nextTurn(Piece *piece);
+    void forfeit();
 };
 
 
