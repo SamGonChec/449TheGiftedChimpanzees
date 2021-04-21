@@ -16,8 +16,8 @@ public:
     void computerFlyingMove();
     void computerCapture();
     void priorityScan();
-    void computerPhaseTwoPriority(std::vector<std::vector<int>> &adjacentSpaces);
-    void computerIntersectionFind(std::vector<std::vector<int>> &adjacentSpaces);
+    void adjacentPopulation(std::vector<int> piecesIndices, std::vector<std::vector<int>> &adjacentSpaces);
+    void computerIntersectionFind(std::vector<std::vector<int>> &adjacentSpaces, std::vector<int> piecesIndices);
     void enableSelectPiece();
     void enableCapturePiece();
 
@@ -28,7 +28,7 @@ private:
     std::vector<int> availableSpaces;
     std::vector<int> availableSelect;
     std::vector<int> availableCapture;
-    std::vector<int> priorityList;
+    std::vector<std::vector<int>> priorityList;
 private slots:
     void nextTurn(Piece *piece);
 };
