@@ -16,8 +16,8 @@ public:
     void computerFlyingMove();
     void computerCapture();
     void priorityScan();
-    void adjacentPopulation(std::vector<int> piecesIndices, std::vector<std::vector<int>> &adjacentSpaces);
-    void computerIntersectionFind(std::vector<std::vector<int>> &adjacentSpaces, std::vector<int> piecesIndices);
+    void priorityScanPhaseTwo();
+    void millChecker();
     void enableSelectPiece();
     void enableCapturePiece();
 
