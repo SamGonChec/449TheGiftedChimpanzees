@@ -18,6 +18,7 @@ public:
     void priorityScan();
     void priorityScanPhaseTwo();
     void millChecker();
+    void computerPieceIndexPopulation();
     void enableSelectPiece();
     void enableCapturePiece();
 
@@ -28,6 +29,7 @@ private:
     std::vector<int> availableSpaces;
     std::vector<int> availableSelect;
     std::vector<int> availableCapture;
+    std::vector<int> computerPieceIndices;
     std::vector<std::vector<int>> priorityList;
 private slots:
     void nextTurn(Piece *piece);

@@ -25,6 +25,19 @@ void SinglePlayerGame::scanSpaces() {
     }
 }
 
+void SinglePlayerGame::computerPieceIndexPopulation(){
+    unsigned int i;
+    if (computerColorWhite){
+        for (i = 0; i < availableSelect.size(); i++){
+            computerPieceIndices.push_back(getSpaceIndex(whitePieces[i]->getSpace()));
+        }
+    } else {
+        for (i = 0; i < availableSelect.size(); i++){
+            computerPieceIndices.push_back(getSpaceIndex(blackPieces[i]->getSpace()));
+        }
+    }
+}
+
 void SinglePlayerGame::millChecker(){
 
 }
@@ -32,13 +45,31 @@ void SinglePlayerGame::millChecker(){
 void SinglePlayerGame::priorityScanPhaseTwo(){
     unsigned int i;
     unsigned int j;
-    unsigned int candidateMillTally;
+    unsigned int k;
+    unsigned int confirmMillTally = 0;
+    std::vector<int> temporaryMoveableIndexes;
+    std::vector<int> temporaryAdjacent;
+
+
 
     priorityScan();
+    scanSpaces();
+    computerPieceIndexPopulation();
     for (i = 0; i < possibleMill.size(); i++){
-
+        temporaryMoveableIndexes = {possibleMill[i]};
+        for (j = 0; j < availableSelect.size(); j++){
+            temporaryAdjacent = (adjacentList[computerPieceIndices[j]]);
+            for (k = 0; k < temporaryAdjacent.size(); k++){
+                if (temporaryAdjacent[k] == possibleMill[i]){
+                    confirmMillTally++;
+                    temporaryMoveableIndexes.push_back(computerPieceIndices[j]);
+                }
+            }
+        }
+        if (confirmMillTally >= 3){
+            priorityList.push_back(temporaryMoveableIndexes);
+        }
     }
-
 }
 
 
@@ -104,6 +135,8 @@ void SinglePlayerGame::computerPhaseTwoMove() {
     unsigned int i;
     bool validMove = false;
     Piece *chosenPiece;
+
+
     priorityScanPhaseTwo();
     while (!validMove) {
            //Choosing a piece
