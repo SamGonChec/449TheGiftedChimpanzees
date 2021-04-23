@@ -115,11 +115,11 @@ Game::Game(QGraphicsScene *scene) {
     scene->addItem(titleText);
 
     // add text item for displaying player instructions
-    instructionText = new QGraphicsTextItem("Place your pieces on the board!");
-    instructionText->setFont(statusFont);
-    instructionText->setTextWidth(375);
-    instructionText->setPos(50,700);
-    scene->addItem(instructionText);
+    instructionalText = new QGraphicsTextItem("Place your pieces on the board!");
+    instructionalText->setFont(statusFont);
+    instructionalText->setTextWidth(375);
+    instructionalText->setPos(50,700);
+    scene->addItem(instructionalText);
 
     // add text item for displaying the turn number
     turnText = new QGraphicsTextItem("Turn Number: 1");
@@ -210,14 +210,14 @@ void Game::buttonCleanup() {
 void Game::textItemCleanup() {
 /* Remove text items from memory at the end of the game */
     scene->removeItem(titleText);
-    scene->removeItem(instructionText);
+    scene->removeItem(instructionalText);
     scene->removeItem(turnText);
     scene->removeItem(whitePieceText);
     scene->removeItem(blackPieceText);
     delete blackPieceText;
     delete whitePieceText;
     delete titleText;
-    delete instructionText;
+    delete instructionalText;
     delete turnText;
 }
 
@@ -281,13 +281,13 @@ void Game::setPlayerTurnText(bool whitePiece) {
 void Game::setInstructionText(int turnNumber, bool captureMode) {
 /* Updates instruction text item to assist player in what move they must take */
     if (turnNumber < 9 && !captureMode) {
-        instructionText->setPlainText("Place your pieces on the board!");
+        instructionalText->setPlainText("Place your pieces on the board!");
     }
     else if (turnNumber >= 9 && !captureMode) {
-        instructionText->setPlainText("Move your pieces to form a mill!");
+        instructionalText->setPlainText("Move your pieces to form a mill!");
     }
     else if (captureMode) {
-        instructionText->setPlainText("A mill has been formed! "\
+        instructionalText->setPlainText("A mill has been formed! "\
                                       "Remove an opponent's piece.");
     }
 }
@@ -410,11 +410,11 @@ void Game::evaluateVictoryConditions() {
         checkForPieceVictory();
     }
     if (whiteVictory) {
-        instructionText->setPlainText("White Wins!");
+        instructionalText->setPlainText("White Wins!");
 
         scene->addWidget(playAgainButton);
     } else if (blackVictory) {
-        instructionText->setPlainText("Black Wins!");
+        instructionalText->setPlainText("Black Wins!");
 
         scene->addWidget(playAgainButton);
     }

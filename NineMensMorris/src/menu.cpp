@@ -30,7 +30,7 @@ void Menu::mainMenuScreen() {
     computerButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     quitButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     tutorialButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
-    gameTitle->setDefaultTextColor(QColor("#00DCDC"));
+    gameTitle->setDefaultTextColor(QColor("#FF4500"));
 
     //set the positioning of each item
     menuBackground = menuBackground.scaled(1920,1080, Qt::IgnoreAspectRatio);

@@ -68,7 +68,7 @@ public:
     QString testTurnText() { return turnText->toPlainText(); }
     QString testWhitePieceText() { return whitePieceText->toPlainText(); }
     QString testBlackPieceText() { return blackPieceText->toPlainText(); }
-    QString testInstructionText() { return instructionText->toPlainText(); }
+    QString testInstructionText() { return instructionalText->toPlainText(); }
 
     QPushButton *returnMainMenu() {return menuButton;}
     QPushButton *returnForfeitButton() {return forfeitButton;}
@@ -100,7 +100,7 @@ protected:
     QGraphicsTextItem *turnText;
     QGraphicsTextItem *whitePieceText;
     QGraphicsTextItem *blackPieceText;
-    QGraphicsTextItem *instructionText;
+    QGraphicsTextItem *instructionalText;
 
     QLabel *statusLabel;
     QListWidget *statusContents;
