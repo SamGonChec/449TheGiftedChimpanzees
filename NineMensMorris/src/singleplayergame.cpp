@@ -14,7 +14,7 @@ SinglePlayerGame::SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite) 
     menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     scene->addWidget(menuButton);
 }
-//Adds unoccupied spaces to available
+// Adds unoccupied spaces to available
 void SinglePlayerGame::scanSpaces() {
     unsigned int i;
     availableSpaces.clear();
@@ -25,6 +25,7 @@ void SinglePlayerGame::scanSpaces() {
     }
 }
 
+// Populates vector of computer piece indices
 void SinglePlayerGame::computerPieceIndexPopulation(){
     unsigned int i;
     if (computerColorWhite){
@@ -38,16 +39,23 @@ void SinglePlayerGame::computerPieceIndexPopulation(){
     }
 }
 
+// checks for possible 2 piece redundant move bug
 void SinglePlayerGame::millChecker(){
 
 }
 
+// computer move heuristics for phase two
 void SinglePlayerGame::priorityScanPhaseTwo(){
     unsigned int i;
     unsigned int j;
     unsigned int k;
-    unsigned int confirmMillTally = 0;
+    // temporary index to solve inappropriate flying bug
+    /* index 0 is the empty spot
+     * following indexes are current
+     * pieces that can move there*/
     std::vector<int> temporaryMoveableIndexes;
+    /* Temporary vector to minimize adjacentList
+     * property vector querying and iterations*/
     std::vector<int> temporaryAdjacent;
 
 
@@ -55,20 +63,35 @@ void SinglePlayerGame::priorityScanPhaseTwo(){
     priorityScan();
     scanSpaces();
     computerPieceIndexPopulation();
+    // Finds the mills it can legally make
     for (i = 0; i < possibleMill.size(); i++){
         temporaryMoveableIndexes = {possibleMill[i]};
         for (j = 0; j < availableSelect.size(); j++){
             temporaryAdjacent = (adjacentList[computerPieceIndices[j]]);
             for (k = 0; k < temporaryAdjacent.size(); k++){
                 if (temporaryAdjacent[k] == possibleMill[i]){
-                    confirmMillTally++;
                     temporaryMoveableIndexes.push_back(computerPieceIndices[j]);
                 }
             }
         }
-        if (confirmMillTally >= 3){
+        /* Will only add as possible mill if there's currently
+        * two pieces in the row or column */
+        if (temporaryMoveableIndexes.size() >= 3){
             priorityList.push_back(temporaryMoveableIndexes);
         }
+    }
+    // Finds the blocks it can legally make
+    for (i = 0; i < possibleBlock.size(); i++){
+        temporaryMoveableIndexes = {possibleBlock[i]};
+        for (j = 0; j < availableSelect.size(); j++){
+            temporaryAdjacent = (adjacentList[computerPieceIndices[j]]);
+            for (k = 0; k < temporaryAdjacent.size(); k++){
+                if (temporaryAdjacent[k] == possibleBlock[i]){
+                    temporaryMoveableIndexes.push_back(computerPieceIndices[j]);
+                }
+            }
+        }
+        priorityList.push_back(temporaryMoveableIndexes);
     }
 }
 
