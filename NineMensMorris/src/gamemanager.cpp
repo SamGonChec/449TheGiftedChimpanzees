@@ -5,7 +5,7 @@ GameManager::GameManager() {
     Splash splash(&splashScene);
     view.setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     view.setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    view.resize(1100,900);
+    view.resize(1920,1080);
     view.setScene(&splashScene);
     view.show();
 

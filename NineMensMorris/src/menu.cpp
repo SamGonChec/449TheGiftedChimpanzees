@@ -12,7 +12,7 @@ void Menu::mainMenuScreen() {
     QFont buttonFont("comic sans MS", 14);
     menuBackground = QPixmap(":/images/media/chimp.jpg");
     int height = 250;
-    int width = scene->width()/2 - gameTitle->boundingRect().width()/2 + 300;
+    int width = scene->width()/2 - gameTitle->boundingRect().width()/2 + 350;
 
     //instantiate the items
     twoPlayerButton = new QPushButton(QString("2-Player"),NULL);
@@ -33,12 +33,12 @@ void Menu::mainMenuScreen() {
     gameTitle->setDefaultTextColor(QColor("#00DCDC"));
 
     //set the positioning of each item
-    menuBackground = menuBackground.scaled(1100,900, Qt::IgnoreAspectRatio);
+    menuBackground = menuBackground.scaled(1400,900, Qt::IgnoreAspectRatio);
     gameTitle->setPos(width,height);
-    computerButton->setGeometry(width+200,height+150,150,70);
-    twoPlayerButton->setGeometry(width+200,height+225,150,70);
-    tutorialButton->setGeometry(width+200,height+300,150,70);
-    quitButton->setGeometry(width+200,height+375,150,70);
+    computerButton->setGeometry(width+150,height+150,150,70);
+    twoPlayerButton->setGeometry(width+150,height+225,150,70);
+    tutorialButton->setGeometry(width+150,height+300,150,70);
+    quitButton->setGeometry(width+150,height+375,150,70);
 
 
     //add items to the scene

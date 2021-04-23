@@ -12,7 +12,7 @@ void Splash::splashScreen(){
     QFont nameFont("comic sans MS", 50);
     splashBackground = QPixmap(":/images/media/chimp.jpg");
     int height = scene->height()/2 + 300;
-    int width = scene->width()/2 - teamName->boundingRect().width()/2 + 225;
+    int width = scene->width()/2 - teamName->boundingRect().width()/2 + 340;
 
     // sets the font, style, and color of the text
     teamName->setFont(nameFont);
@@ -24,7 +24,7 @@ void Splash::splashScreen(){
     // sets up the proper spacing and format for the image and lines
     splashBackground = splashBackground.scaled(1100,900, Qt::IgnoreAspectRatio);
     teamName->setPos(width,height);
-    secondLine->setPos(width+250, height+100);
+    secondLine->setPos(width+190, height+100);
 
 
     // adds the items to the scene

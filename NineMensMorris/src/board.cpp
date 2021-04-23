@@ -2,7 +2,7 @@
 
 Board::Board() {
 /* Constructor for Board class */
-    resize(800,800);
+    resize(800,800); // resizes wooden game board
     setAttribute(Qt::WA_NoSystemBackground);
 }
 
