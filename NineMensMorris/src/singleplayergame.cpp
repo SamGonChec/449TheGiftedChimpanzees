@@ -28,6 +28,7 @@ void SinglePlayerGame::scanSpaces() {
 // Populates vector of computer piece indices
 void SinglePlayerGame::computerPieceIndexPopulation(){
     unsigned int i;
+    computerPieceIndices.clear();
     if (computerColorWhite){
         for (i = 0; i < availableSelect.size(); i++){
             computerPieceIndices.push_back(getSpaceIndex(whitePieces[i]->getSpace()));
@@ -39,10 +40,42 @@ void SinglePlayerGame::computerPieceIndexPopulation(){
     }
 }
 
-// checks for possible 2 piece redundant move bug
+// solving the redundant move bug
 void SinglePlayerGame::millChecker(){
+//    unsigned int i;
+//    unsigned int j;
+//    unsigned int k;
+//    unsigned int validCounter;
+//    std::vector<int> millVector;
+//    std::vector<int> testVector;
+//    std::vector<std::vector<int>> updatedPriorityList;
+
+//    for (i = 0; i < priorityList.size(); i++){
+//        validCounter = 0;
+//        testVector.push_back(priorityList[i][0]);
+//        for (j = 1; j < priorityList[i].size(); j++){
+//            millVector.push_back(computerPieceIndices[priorityList[i][j]]);
+//        }
+//        for (j = 1; j < millVector.size(); j++){
+//            testVector.push_back(millVector[j]);
+//            testVector.erase(std::remove(testVector.begin(), testVector.end(), testVector[j]));
+//            std::sort(testVector.begin(), testVector.end());
+//        }
+//        for (j = 0; j < millList.size(); j++){
+//            for (k = 0; k < millList[i].size(); k++){
+//                if (testVector[k] == millList[j][k]){
+//                   validCounter++;
+//                }
+//            }
+//        }
+//        if (validCounter >= 2){
+//            updatedPriorityList.push_back()
+//        }
+//    }
+//    priorityList = updatedPriorityList;
 
 }
+
 
 // computer move heuristics for phase two
 void SinglePlayerGame::priorityScanPhaseTwo(){
@@ -50,9 +83,8 @@ void SinglePlayerGame::priorityScanPhaseTwo(){
     unsigned int j;
     unsigned int k;
     // temporary index to solve inappropriate flying bug
-    /* index 0 is the empty spot
-     * following indexes are current
-     * pieces that can move there*/
+    /* index 0 is the empty spot,
+     * following indexes are the piece numbers that can move there*/
     std::vector<int> temporaryMoveableIndexes;
     /* Temporary vector to minimize adjacentList
      * property vector querying and iterations*/
@@ -70,15 +102,18 @@ void SinglePlayerGame::priorityScanPhaseTwo(){
             temporaryAdjacent = (adjacentList[computerPieceIndices[j]]);
             for (k = 0; k < temporaryAdjacent.size(); k++){
                 if (temporaryAdjacent[k] == possibleMill[i]){
-                    temporaryMoveableIndexes.push_back(computerPieceIndices[j]);
+                    temporaryMoveableIndexes.push_back(j);
                 }
             }
         }
         /* Will only add as possible mill if there's currently
-        * two pieces in the row or column */
+        * two or more pieces that can move to that spot */
         if (temporaryMoveableIndexes.size() >= 3){
             priorityList.push_back(temporaryMoveableIndexes);
         }
+    }
+    if (!priorityList.empty()){
+        millChecker();
     }
     // Finds the blocks it can legally make
     for (i = 0; i < possibleBlock.size(); i++){
@@ -87,11 +122,13 @@ void SinglePlayerGame::priorityScanPhaseTwo(){
             temporaryAdjacent = (adjacentList[computerPieceIndices[j]]);
             for (k = 0; k < temporaryAdjacent.size(); k++){
                 if (temporaryAdjacent[k] == possibleBlock[i]){
-                    temporaryMoveableIndexes.push_back(computerPieceIndices[j]);
+                    temporaryMoveableIndexes.push_back(j);
                 }
             }
         }
-        priorityList.push_back(temporaryMoveableIndexes);
+        if (temporaryMoveableIndexes.size() >= 2){
+            priorityList.push_back(temporaryMoveableIndexes);
+        }
     }
 }
 
@@ -107,6 +144,7 @@ void SinglePlayerGame::priorityScan() {
     // Clears the vectors for repopulation
     possibleMill.clear();
     possibleBlock.clear();
+    priorityList.clear();
     
     // Scans the board to find possible mills and blocks
     for (i = 0; i < millList.size(); i++){
@@ -158,9 +196,21 @@ void SinglePlayerGame::computerPhaseTwoMove() {
     unsigned int i;
     bool validMove = false;
     Piece *chosenPiece;
+    int moveSpaceIndex;
 
 
     priorityScanPhaseTwo();
+
+    if (!priorityList.empty()){
+        validMove = true;
+        int pieceIndex = availableSelect[priorityList[0][1]];
+        if (computerColorWhite) {
+            chosenPiece = whitePieces[pieceIndex];
+        } else {
+            chosenPiece = blackPieces[pieceIndex];
+        }
+        moveSpaceIndex = priorityList[0][0];
+    }
     while (!validMove) {
            //Choosing a piece
            int randIndex = rand() % availableSelect.size();
@@ -179,9 +229,12 @@ void SinglePlayerGame::computerPhaseTwoMove() {
                    validMove = true;
                }
            }
-       }
-       //Pick a random adjacent space
-       int moveSpaceIndex = availableSpaces[rand() % availableSpaces.size()];
+           if (validMove){
+               //Pick a random adjacent space
+               moveSpaceIndex = availableSpaces[rand() % availableSpaces.size()];
+           }
+
+       }      
        //Select piece and move to space
        chosenPiece->computerPlayerSelect();
        spaceList[moveSpaceIndex]->computerClickSpace();
