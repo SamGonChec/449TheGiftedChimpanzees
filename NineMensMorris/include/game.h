@@ -5,14 +5,15 @@
 #include "include/piece.h"
 #include "include/board.h"
 
-#include <vector>
-#include <QObject>
+#include <QFont>
 #include <QGraphicsScene>
 #include <QLabel>
-#include <QString>
-#include <QFont>
+#include <QListWidget>
+#include <QObject>
 #include <QPushButton>
+#include <QString>
 #include <QtWidgets/QGraphicsProxyWidget>
+#include <vector>
 
 
 class Game : public QObject {
@@ -100,6 +101,9 @@ protected:
     QGraphicsTextItem *whitePieceText;
     QGraphicsTextItem *blackPieceText;
     QGraphicsTextItem *instructionText;
+
+    QLabel *statusLabel;
+    QListWidget *statusContents;
 
 private slots:
     void pieceCaptureAction(Piece *piece);

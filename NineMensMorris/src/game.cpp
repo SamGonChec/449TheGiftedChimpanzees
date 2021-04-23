@@ -138,6 +138,21 @@ Game::Game(QGraphicsScene *scene) {
     blackPieceText->setPos(780, 180);
     scene->addItem(blackPieceText);
 
+    // add status label to display list of status messages
+    statusLabel = new QLabel();
+    statusLabel->setText("Status History");
+    statusLabel->setGeometry(QRect(1000, 0, 150, 25));
+    statusLabel->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(statusLabel);
+
+    // add status list object that stores a list of status messages
+    statusContents = new QListWidget();
+    statusContents->addItem("Ryan has entered the battlefront");
+    statusContents->setWordWrap(true);
+    statusContents->setGeometry(QRect(1000, 50, 200, 200));
+    statusContents->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(statusContents);
+
     menuButton = new QPushButton(QString("Main Menu"));
     forfeitButton = new QPushButton(QString("Forfeit"));
     playAgainButton = new QPushButton(QString("Play Again?"));
