@@ -14,6 +14,7 @@ SinglePlayerGame::SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite) 
     menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     scene->addWidget(menuButton);
 }
+
 // Adds unoccupied spaces to available
 void SinglePlayerGame::scanSpaces() {
     unsigned int i;
@@ -31,11 +32,11 @@ void SinglePlayerGame::computerPieceIndexPopulation(){
     computerPieceIndices.clear();
     if (computerColorWhite){
         for (i = 0; i < availableSelect.size(); i++){
-            computerPieceIndices.push_back(getSpaceIndex(whitePieces[i]->getSpace()));
+            computerPieceIndices.push_back(getSpaceIndex(whitePieces[availableSelect[i]]->getSpace()));
         }
     } else {
         for (i = 0; i < availableSelect.size(); i++){
-            computerPieceIndices.push_back(getSpaceIndex(blackPieces[i]->getSpace()));
+            computerPieceIndices.push_back(getSpaceIndex(blackPieces[availableSelect[i]]->getSpace()));
         }
     }
 }
@@ -198,9 +199,7 @@ void SinglePlayerGame::computerPhaseTwoMove() {
     Piece *chosenPiece;
     int moveSpaceIndex;
 
-
     priorityScanPhaseTwo();
-
     if (!priorityList.empty()){
         validMove = true;
         int pieceIndex = availableSelect[priorityList[0][1]];
@@ -233,7 +232,6 @@ void SinglePlayerGame::computerPhaseTwoMove() {
                //Pick a random adjacent space
                moveSpaceIndex = availableSpaces[rand() % availableSpaces.size()];
            }
-
        }      
        //Select piece and move to space
        chosenPiece->computerPlayerSelect();
