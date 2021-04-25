@@ -16,6 +16,21 @@
 class GameManager : public QObject {
    Q_OBJECT
 public:
+    GameManager(bool wait = false);
+
+    //Functions for testing
+    bool testSplashSceneActive() { return view.scene() == &splashScene; }
+    bool testMenuSceneActive() { return view.scene() == &menuScene; }
+    bool testGameSceneActive() { return view.scene() == &gameScene; }
+    bool testTutorialSceneActive() { return view.scene() == &tutorialScene; }
+    bool testSinglePlayerSceneActive() { return view.scene() == &singlePlayerScene; }
+    bool testQuit() {return menuScene.activeWindow() == nullptr; }
+    Menu *returnMenu() { return menu; }
+    QGraphicsScene *returnSinglePlayerScene() { return &singlePlayerScene; }
+    QGraphicsScene *returnTwoPlayerScene() { return &gameScene; }
+    void testSwitchBackToMainMenu(bool singlePlayerGame);
+
+private:
     QGraphicsScene splashScene;
     QGraphicsScene menuScene;
     QGraphicsScene gameScene;
@@ -24,10 +39,7 @@ public:
     QGraphicsView view;
     Game *game;
     SinglePlayerGame *computerGame;
-    GameManager();
-
-    bool testSplashSceneActive() { return view.scene() == &splashScene; }
-    bool testMenuSceneActive() { return view.scene() == &menuScene; }
+    Menu *menu;
 
 private slots:
     void switchTutorialScreen();
