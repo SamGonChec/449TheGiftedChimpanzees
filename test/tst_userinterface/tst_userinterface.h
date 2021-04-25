@@ -16,14 +16,16 @@ public:
     UserInterface() {}
     ~UserInterface() {}
 
-private:
-    QGraphicsScene testScene;
-
 private slots:
+    //AC 8.1
     void testMainMenuAndSplashScene();
+
     void testOnePlayerScreen();
     void testTwoPlayerScreen();
+
+    //AC 8.3
     void testTutorialScreen();
+
     void testQuitButton();
     void testOnePlayerMainMenuButton();
     void testTwoPlayerMainMenuButton();

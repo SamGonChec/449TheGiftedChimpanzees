@@ -59,6 +59,7 @@ private slots:
     //AC 7.6
     void testBlackMovesVictory();
 
+    //AC 8.5
     void testTurnTextAndPlayerText();
     void testInstructionText();
 
