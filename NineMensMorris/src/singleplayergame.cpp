@@ -242,6 +242,7 @@ void SinglePlayerGame::computerPhaseTwoMove() {
 void SinglePlayerGame::computerFlyingMove() {
     Piece *chosenPiece;
     scanSpaces();
+    priorityScan();
     int randIndex = rand() % availableSpaces.size();
     int spaceIndex = availableSpaces[randIndex];
     randIndex = rand() % availableSelect.size();
@@ -252,7 +253,13 @@ void SinglePlayerGame::computerFlyingMove() {
         chosenPiece = blackPieces[pieceIndex];
     }
     chosenPiece->computerPlayerSelect();
-    spaceList[spaceIndex]->computerClickSpace();
+    if (!possibleMill.empty()){
+        spaceList[possibleMill[0]]->computerClickSpace();
+    } else if (!possibleBlock.empty()){
+        spaceList[possibleBlock[0]]->computerClickSpace();
+    } else{
+        spaceList[spaceIndex]->computerClickSpace();
+    }
 }
 
 //Selects capturable piece and captures it
