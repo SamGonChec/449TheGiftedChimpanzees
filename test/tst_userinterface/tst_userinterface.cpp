@@ -88,6 +88,6 @@ void UserInterface::testTwoPlayerMainMenuButton() {
     manager.testSwitchBackToMainMenu(false);
     QCOMPARE(manager.testMenuSceneActive(), true);
 }
-
 QTEST_MAIN(UserInterface)
+
 

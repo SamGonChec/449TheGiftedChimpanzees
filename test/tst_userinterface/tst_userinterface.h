@@ -29,6 +29,5 @@ private slots:
     void testQuitButton();
     void testOnePlayerMainMenuButton();
     void testTwoPlayerMainMenuButton();
-
 };
 #endif // TST_USERINTERFACE_H

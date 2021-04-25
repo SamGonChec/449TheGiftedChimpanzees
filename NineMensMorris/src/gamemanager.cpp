@@ -101,15 +101,15 @@ void GameManager::switchPlayAgainSinglePlayer() {
 
 //this method is specifically for first run to allow the splash screen to be visible
 void GameManager::timerComplete(){
-    Menu menu(&menuScene);
+    menu = new Menu(&menuScene);
     view.setScene(&menuScene);
     view.show();
 
     //Connecting the button to the library signal clicked, along with the slot switchTwoPlayerMode
-    connect(menu.returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTwoPlayerMode()));
-    connect(menu.returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchSinglePlayerScreen()));
-    connect(menu.returnTutorialPushButton(), SIGNAL(clicked()), this, SLOT(switchTutorialScreen()));
-    connect(menu.returnQuitButton(),SIGNAL(clicked()),qApp,SLOT(quit()));
+    connect(menu->returnTwoPlayerPushButton(),SIGNAL(clicked()),this,SLOT(switchTwoPlayerMode()));
+    connect(menu->returnSinglePlayerPushButton(), SIGNAL(clicked()), this, SLOT(switchSinglePlayerScreen()));
+    connect(menu->returnTutorialPushButton(), SIGNAL(clicked()), this, SLOT(switchTutorialScreen()));
+    connect(menu->returnQuitButton(),SIGNAL(clicked()),qApp,SLOT(quit()));
 }
 
 //Used to test the switch back to the main menu
