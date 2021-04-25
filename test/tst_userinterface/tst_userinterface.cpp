@@ -64,4 +64,3 @@ void UserInterface::testTwoPlayerMainMenuButton() {
 
 QTEST_MAIN(UserInterface)
 
-
