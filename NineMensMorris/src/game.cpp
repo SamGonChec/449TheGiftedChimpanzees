@@ -335,7 +335,7 @@ void Game::checkForMovesVictory() {
     //Counting the unoccupied spaces adjacent to white pieces
     } else {
         for (i = 0; i < whitePieces.size(); i++) {
-            if (!whitePieces[i]->isCaptured() && blackPieces[i]->isInPlay()) {
+            if (!whitePieces[i]->isCaptured() && whitePieces[i]->isInPlay()) {
                 adjacentSpaces = adjacentList[getSpaceIndex(whitePieces[i]->getSpace())];
                 for (j = 0; j < adjacentSpaces.size(); j++) {
                     if (!spaceList[adjacentSpaces[j]]->isOccupied()) {
@@ -358,7 +358,7 @@ void Game::checkForMovesVictory() {
 
 void Game::evaluateVictoryConditions() {
 /*Evaluates if the game has ended or else starts a new turn*/
-    if (phaseOneComplete) {
+    if (phaseOneComplete || (turnNumber == 8 && !whiteTurn)) {
         checkForMovesVictory();
         checkForPieceVictory();
     }
