@@ -20,11 +20,11 @@ class Game : public QObject {
 public:
     Game(QGraphicsScene * scene);
     ~Game();
-    QPushButton *menuButton;
     void pieceCleanup(std::vector<Piece*> &pieces);
     void boardCleanup(QGraphicsProxyWidget* proxyBoard);
     void spaceCleanup(std::vector<Space*> &spaces);
     void textItemCleanup();
+    void buttonCleanup();
 
     int getSpaceIndex(Space *space);
     void setAdjacentSpaces(Piece *piece, bool value);
@@ -51,6 +51,7 @@ public:
     void endTurn(Piece *piece);
     virtual void startNewTurn();
 
+
     //Functions for testing
     Space *getSpace(int spaceIndex) { return spaceList[spaceIndex]; }
     Piece *getWhitePiece(int pieceIndex) { return whitePieces[pieceIndex]; }
@@ -69,7 +70,12 @@ public:
     QString testInstructionText() { return instructionText->toPlainText(); }
 
     QPushButton *returnMainMenu() {return menuButton;}
+    QPushButton *returnForfeitButton() {return forfeitButton;}
+    QPushButton *returnPlayAgainButton() {return playAgainButton;}
 protected:
+    QPushButton *menuButton;
+    QPushButton *forfeitButton;
+    QPushButton *playAgainButton;
     QGraphicsScene *scene;
     Board *board;
     bool whiteTurn;
@@ -98,8 +104,8 @@ protected:
 private slots:
     void pieceCaptureAction(Piece *piece);
     void pieceSelectAction(Piece *piece);
+    void forfeit();
     virtual void nextTurn(Piece *piece);
-
 };
 
 #endif // GAME_H

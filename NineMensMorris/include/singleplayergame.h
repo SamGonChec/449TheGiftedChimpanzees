@@ -20,6 +20,8 @@ public:
 
     void startNewTurn();
     QPushButton *returnMainMenu() {return menuButton;}
+    QPushButton *returnForfeitButton() {return forfeitButton;}
+    QPushButton *returnPlayAgainButton() {return playAgainButton;}
 private:
     bool computerColorWhite;
     std::vector<int> availableSpaces;

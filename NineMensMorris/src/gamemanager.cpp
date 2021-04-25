@@ -41,7 +41,7 @@ void GameManager::switchTwoPlayerMode() {
     game = new Game(&gameScene);
     view.setScene(&gameScene);
     connect(game->returnMainMenu(),SIGNAL(clicked()),this,SLOT(switchBackToMainMenuTwoPlayer()));
-
+    connect(game->returnPlayAgainButton(), SIGNAL(clicked()),this, SLOT(switchPlayAgainTwoPlayer()));
 }
 
 //this method begins a single player game with the user being white
@@ -52,6 +52,7 @@ void GameManager::switchComputerPlayerModeWhite() {
 
     //this connect catches the signal if the main menu button is clicked during the game
     connect(computerGame->returnMainMenu(),SIGNAL(clicked()),this,SLOT(switchBackToMainMenuSinglePlayer()));
+    connect(computerGame->returnPlayAgainButton(),SIGNAL(clicked()),this,SLOT(switchPlayAgainSinglePlayer()));
 }
 
 void GameManager::switchComputerPlayerModeBlack() {
@@ -61,6 +62,7 @@ void GameManager::switchComputerPlayerModeBlack() {
 
     //this connect catches the signal if the main menu button is clicked during the game
     connect(computerGame->returnMainMenu(),SIGNAL(clicked()),this,SLOT(switchBackToMainMenuSinglePlayer()));
+    connect(computerGame->returnPlayAgainButton(),SIGNAL(clicked()),this,SLOT(switchPlayAgainSinglePlayer()));
 }
 
 //during the tutorial screen this method is called to switch back to the main menu
@@ -81,6 +83,16 @@ void GameManager::switchBackToMainMenuSinglePlayer() {
     //set the scene back to the menu scene
     view.setScene(&menuScene);
     delete computerGame;
+}
+
+void GameManager::switchPlayAgainTwoPlayer() {
+    delete game;
+    switchTwoPlayerMode();
+}
+
+void GameManager::switchPlayAgainSinglePlayer() {
+    delete computerGame;
+    switchSinglePlayerScreen();
 }
 
 //this method is specifically for first run to allow the splash screen to be visible
