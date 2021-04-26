@@ -41,6 +41,41 @@ void SinglePlayerGame::getAvailablePieceIndices(){
     }
 }
 
+void SinglePlayerGame::pieceToMoveForMill(){
+    unsigned int i;
+    unsigned int j;
+    unsigned int k;
+    unsigned int validCounter;
+
+    std::vector<int> piecesToMove;
+    std::vector<int> potentialMill;
+    std::vector<std::vector<int>> updatedPriorityList;
+
+    for (i = 0; i < priorityList.size(); i++){
+        validCounter = 0;
+        potentialMill.push_back(priorityList[i][0]);
+        for (j = 1; j < priorityList[i].size(); j++){
+            piecesToMove.push_back(availableSelectIndices[priorityList[i][j]]);
+        }
+        for (j = 1; j < piecesToMove.size(); j++){
+            potentialMill.push_back(piecesToMove[j]);
+            potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), potentialMill[j]));
+            std::sort(potentialMill.begin(), potentialMill.end());
+        }
+        for (j = 0; j < millList.size(); j++){
+            for (k = 0; k < millList[i].size(); k++){
+                if (potentialMill[k] == millList[j][k]){
+                    validCounter++;
+                }
+            }
+        }
+        if (validCounter >= 2) {
+            updatedPriorityList.push_back(potentialMill);
+        }
+    }
+    priorityList = updatedPriorityList;
+}
+
 // Computer move logic for phase two
 void SinglePlayerGame::priorityScanPhaseTwo(){
     unsigned int i;

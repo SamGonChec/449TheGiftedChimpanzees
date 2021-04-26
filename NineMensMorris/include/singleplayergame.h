@@ -8,8 +8,6 @@
 class SinglePlayerGame : Game {
 public:
     SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite);
-    std::vector<int> possibleBlock;
-    std::vector<int> possibleMill;
     void scanSpaces();
     void computerPhaseOneMove();
     void computerPhaseTwoMove();
@@ -20,11 +18,13 @@ public:
     void getAvailablePieceIndices();
     void enableSelectPiece();
     void enableCapturePiece();
-
+    void pieceToMoveForMill();
     void startNewTurn();
     QPushButton *returnMainMenu() {return menuButton;}
 private:
     bool computerColorWhite;
+    std::vector<int> possibleBlock;
+    std::vector<int> possibleMill;
     std::vector<int> availableSpaces;
     std::vector<int> availableSelect;
     std::vector<int> availableCapture;
