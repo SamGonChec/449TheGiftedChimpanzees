@@ -41,57 +41,13 @@ void SinglePlayerGame::getAvailablePieceIndices(){
     }
 }
 
-// solving the redundant move bug
-void SinglePlayerGame::millChecker(){
-//    unsigned int i;
-//    unsigned int j;
-//    unsigned int k;
-//    unsigned int validCounter;
-//    std::vector<int> piecesToMove;
-//    std::vector<int> potentialMill;
-//    std::vector<std::vector<int>> updatedPriorityList;
-
-//    for (i = 0; i < priorityList.size(); i++){
-//        validCounter = 0;
-//        potentialMill.push_back(priorityList[i][0]);
-//        for (j = 1; j < priorityList[i].size(); j++){
-//            piecesToMove.push_back(availableSelectIndices[priorityList[i][j]]);
-//        }
-//        for (j = 1; j < piecesToMove.size(); j++){
-//            potentialMill.push_back(piecesToMove[j]);
-//            potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), potentialMill[j]));
-//            std::sort(potentialMill.begin(), potentialMill.end());
-//        }
-//        for (j = 0; j < millList.size(); j++){
-//            for (k = 0; k < millList[i].size(); k++){
-//                if (potentialMill[k] == millList[j][k]){
-//                   validCounter++;
-//                }
-//            }
-//        }
-//        if (validCounter >= 2){
-//            updatedPriorityList.push_back()
-//        }
-//    }
-//    priorityList = updatedPriorityList;
-
-}
-
-
-// computer move heuristics for phase two
+// Computer move logic for phase two
 void SinglePlayerGame::priorityScanPhaseTwo(){
     unsigned int i;
     unsigned int j;
     unsigned int k;
-    // temporary index to solve inappropriate flying bug
-    /* index 0 is the empty spot,
-     * following indexes are the piece numbers that can move there*/
     std::vector<int> candidatePieceIndex;
-    /* Temporary vector to minimize adjacentList
-     * property vector querying and iterations*/
     std::vector<int> adjacentToCandidate;
-
-
 
     priorityScan();
     scanSpaces();
@@ -107,14 +63,9 @@ void SinglePlayerGame::priorityScanPhaseTwo(){
                 }
             }
         }
-        /* Will only add as possible mill if there's currently
-        * two or more pieces that can move to that spot */
         if (candidatePieceIndex.size() >= 3){
             priorityList.push_back(candidatePieceIndex);
         }
-    }
-    if (!priorityList.empty()){
-        millChecker();
     }
     // Finds the blocks it can legally make
     for (i = 0; i < possibleBlock.size(); i++){
@@ -134,7 +85,7 @@ void SinglePlayerGame::priorityScanPhaseTwo(){
 }
 
 
-// Scans the board for priority population
+// Scans the board for ideal moves
 void SinglePlayerGame::priorityScan() {
     unsigned int i;
     unsigned int j;
@@ -142,7 +93,6 @@ void SinglePlayerGame::priorityScan() {
     unsigned int whiteCounter;
     int emptyIndex;
     
-    // Clears the vectors for repopulation
     possibleMill.clear();
     possibleBlock.clear();
     priorityList.clear();
@@ -151,7 +101,6 @@ void SinglePlayerGame::priorityScan() {
     for (i = 0; i < millList.size(); i++){
         blackCounter = 0;
         whiteCounter = 0;
-        // Flag for existence of an empty space in the line
         emptyIndex = -1;
         for (j = 0; j < 3; j++){
             if (spaceList[millList[i][j]]->hasWhitePiece()){
@@ -159,7 +108,6 @@ void SinglePlayerGame::priorityScan() {
             } else if (spaceList[millList[i][j]]->hasBlackPiece()){
                 blackCounter++;
             } else{
-              // If an empty space is found
               emptyIndex = millList[i][j];
             }
             // If there's no empty spaces, the line is ignored
@@ -174,7 +122,7 @@ void SinglePlayerGame::priorityScan() {
 }
 
 
-//Chooses an available space and moves in first phase
+// Chooses an available space and moves in first phase
 void SinglePlayerGame::computerPhaseOneMove() {
     priorityScan();
     /* Going to want to prioritize mills over blocks.
@@ -192,7 +140,7 @@ void SinglePlayerGame::computerPhaseOneMove() {
 }
 
 
-//Chooses a piece and moves to an open space
+// Chooses a piece and moves to an open space
 void SinglePlayerGame::computerPhaseTwoMove() {
     unsigned int i;
     bool validMove = false;

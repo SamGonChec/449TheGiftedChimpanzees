@@ -17,7 +17,6 @@ public:
     void computerCapture();
     void priorityScan();
     void priorityScanPhaseTwo();
-    void millChecker();
     void getAvailablePieceIndices();
     void enableSelectPiece();
     void enableCapturePiece();
