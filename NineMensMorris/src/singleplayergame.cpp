@@ -45,32 +45,45 @@ void SinglePlayerGame::pieceToMoveForMill(){
     unsigned int i;
     unsigned int j;
     unsigned int k;
+    unsigned int l;
     unsigned int validCounter;
 
     std::vector<int> piecesToMove;
-    std::vector<int> potentialMill;
     std::vector<std::vector<int>> updatedPriorityList;
 
     for (i = 0; i < priorityList.size(); i++){
-        validCounter = 0;
-        potentialMill.push_back(priorityList[i][0]);
+        std::vector<int> validMillMove;
         for (j = 1; j < priorityList[i].size(); j++){
-            piecesToMove.push_back(availableSelectIndices[priorityList[i][j]]);
-        }
-        for (j = 1; j < piecesToMove.size(); j++){
-            potentialMill.push_back(piecesToMove[j]);
-            potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), potentialMill[j]));
-            std::sort(potentialMill.begin(), potentialMill.end());
-        }
-        for (j = 0; j < millList.size(); j++){
-            for (k = 0; k < millList[i].size(); k++){
-                if (potentialMill[k] == millList[j][k]){
-                    validCounter++;
+            std::vector<int> potentialMill;
+            validCounter = 0;
+            potentialMill.push_back(priorityList[i][0]);
+            for (k = 1; k < priorityList[i].size(); k++){
+                piecesToMove.push_back(availableSelectIndices[priorityList[i][k]]);
+            }
+            for (k = 0; k < piecesToMove.size(); k++){
+                potentialMill.push_back(piecesToMove[k]);
+            }
+            potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), piecesToMove[j]));
+            for (k = 0; k < millList.size(); k++){
+                for (l = 0; l < 3; l++){
+                    if (potentialMill[l] == millList[k][l]){
+                        validCounter++;
+                    } else if (std::count(availableSelectIndices.begin(), availableSelectIndices.end(), millList[k][l])){
+                        validCounter++;
+                    }
+                }
+                if (validCounter == 3){
+                    break;
+                } else {
+                    validCounter = 0;
                 }
             }
-        }
-        if (validCounter >= 2) {
-            updatedPriorityList.push_back(potentialMill);
+            if (validCounter) {
+                validMillMove.push_back(priorityList[i][0]);
+                validMillMove.push_back(priorityList[i][j]);
+                updatedPriorityList.push_back(validMillMove);
+                break;
+            }
         }
     }
     priorityList = updatedPriorityList;
@@ -101,6 +114,9 @@ void SinglePlayerGame::priorityScanPhaseTwo(){
         if (candidatePieceIndex.size() >= 3){
             priorityList.push_back(candidatePieceIndex);
         }
+    }
+    if (!priorityList.empty()){
+        pieceToMoveForMill();
     }
     // Finds the blocks it can legally make
     for (i = 0; i < possibleBlock.size(); i++){
