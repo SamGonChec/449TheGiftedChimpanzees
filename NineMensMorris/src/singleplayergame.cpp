@@ -45,17 +45,15 @@ void SinglePlayerGame::pieceToMoveForMill(){
     unsigned int i;
     unsigned int j;
     unsigned int k;
-    unsigned int l;
-    unsigned int validCounter;
 
-    std::vector<int> piecesToMove;
+
     std::vector<std::vector<int>> updatedPriorityList;
 
     for (i = 0; i < priorityList.size(); i++){
         std::vector<int> validMillMove;
         for (j = 1; j < priorityList[i].size(); j++){
             std::vector<int> potentialMill;
-            validCounter = 0;
+            std::vector<int> piecesToMove;
             potentialMill.push_back(priorityList[i][0]);
             for (k = 1; k < priorityList[i].size(); k++){
                 piecesToMove.push_back(availableSelectIndices[priorityList[i][k]]);
@@ -64,25 +62,26 @@ void SinglePlayerGame::pieceToMoveForMill(){
                 potentialMill.push_back(piecesToMove[k]);
             }
             potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), piecesToMove[j]));
-            for (k = 0; k < millList.size(); k++){
-                for (l = 0; l < 3; l++){
-                    if (potentialMill[l] == millList[k][l]){
-                        validCounter++;
-                    } else if (std::count(availableSelectIndices.begin(), availableSelectIndices.end(), millList[k][l])){
-                        validCounter++;
+            sort(potentialMill.begin(), potentialMill.end());
+            // if the mill is made with a corner piece
+            if (potentialMill.size() != 3){
+                for (k = 0; k < availableSelect.size(); k++){
+                    std::vector<int> cornerMill;
+                    cornerMill = potentialMill;
+                    cornerMill.push_back(availableSelectIndices[k]);
+                    sort(cornerMill.begin(), cornerMill.end());
+                    if (std::count(millList.begin(), millList.end(), potentialMill)){
+                        validMillMove.push_back(priorityList[i][0]);
+                        validMillMove.push_back(priorityList[i][j]);
+                        updatedPriorityList.push_back(validMillMove);
+                        break;
                     }
                 }
-                if (validCounter == 3){
-                    break;
-                } else {
-                    validCounter = 0;
-                }
-            }
-            if (validCounter) {
-                validMillMove.push_back(priorityList[i][0]);
-                validMillMove.push_back(priorityList[i][j]);
-                updatedPriorityList.push_back(validMillMove);
-                break;
+            } else if (std::count(millList.begin(), millList.end(), potentialMill)){
+                  validMillMove.push_back(priorityList[i][0]);
+                  validMillMove.push_back(priorityList[i][j]);
+                  updatedPriorityList.push_back(validMillMove);
+                  break;
             }
         }
     }
