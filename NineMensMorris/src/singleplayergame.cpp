@@ -45,6 +45,7 @@ void SinglePlayerGame::pieceToMoveForMill(){
     unsigned int i;
     unsigned int j;
     unsigned int k;
+    unsigned int pieceIndex;
 
 
     std::vector<std::vector<int>> updatedPriorityList;
@@ -55,13 +56,14 @@ void SinglePlayerGame::pieceToMoveForMill(){
             std::vector<int> potentialMill;
             std::vector<int> piecesToMove;
             potentialMill.push_back(priorityList[i][0]);
+            pieceIndex = priorityList[i][j];
             for (k = 1; k < priorityList[i].size(); k++){
                 piecesToMove.push_back(availableSelectIndices[priorityList[i][k]]);
             }
             for (k = 0; k < piecesToMove.size(); k++){
                 potentialMill.push_back(piecesToMove[k]);
             }
-            potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), piecesToMove[j]));
+            potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), piecesToMove[j-1]));
             sort(potentialMill.begin(), potentialMill.end());
             // if the mill is made with a corner piece
             if (potentialMill.size() != 3){
@@ -72,14 +74,14 @@ void SinglePlayerGame::pieceToMoveForMill(){
                     sort(cornerMill.begin(), cornerMill.end());
                     if (std::count(millList.begin(), millList.end(), potentialMill)){
                         validMillMove.push_back(priorityList[i][0]);
-                        validMillMove.push_back(priorityList[i][j]);
+                        validMillMove.push_back(pieceIndex);
                         updatedPriorityList.push_back(validMillMove);
                         break;
                     }
                 }
             } else if (std::count(millList.begin(), millList.end(), potentialMill)){
                   validMillMove.push_back(priorityList[i][0]);
-                  validMillMove.push_back(priorityList[i][j]);
+                  validMillMove.push_back(pieceIndex);
                   updatedPriorityList.push_back(validMillMove);
                   break;
             }
@@ -196,11 +198,14 @@ void SinglePlayerGame::computerPhaseTwoMove() {
     bool validMove = false;
     Piece *chosenPiece;
     int moveSpaceIndex;
+    int pieceIndex;
+    int randIndex;
+    bool priorityChosen = rand() % 2;
 
     priorityScanPhaseTwo();
-    if (!priorityList.empty()){
+    if (!priorityList.empty() && priorityChosen){
         validMove = true;
-        int pieceIndex = availableSelect[priorityList[0][1]];
+        pieceIndex = availableSelect[priorityList[0][1]];
         if (computerColorWhite) {
             chosenPiece = whitePieces[pieceIndex];
         } else {
@@ -210,8 +215,8 @@ void SinglePlayerGame::computerPhaseTwoMove() {
     }
     while (!validMove) {
            //Choosing a piece
-           int randIndex = rand() % availableSelect.size();
-           int pieceIndex = availableSelect[randIndex];
+           randIndex = rand() % availableSelect.size();
+           pieceIndex = availableSelect[randIndex];
            if (computerColorWhite) {
                chosenPiece = whitePieces[pieceIndex];
            } else {
