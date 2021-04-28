@@ -19,6 +19,7 @@ public:
     void enableSelectPiece();
     void enableCapturePiece();
     void pieceToMoveForMill();
+    void priorityScanPopulation(std::vector<int> possiblePriorityMoves, bool isPossibleMills);
     void startNewTurn();
     QPushButton *returnMainMenu() {return menuButton;}
 private:

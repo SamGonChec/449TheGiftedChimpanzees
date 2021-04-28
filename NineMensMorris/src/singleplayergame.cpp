@@ -15,6 +15,33 @@ SinglePlayerGame::SinglePlayerGame(QGraphicsScene *scene, bool computerIsWhite) 
     scene->addWidget(menuButton);
 }
 
+// Finds the legal mills and blocks to make
+void SinglePlayerGame::priorityScanPopulation(std::vector<int> possiblePriorityMoves, bool isPossibleMills){
+    unsigned int i;
+    unsigned int j;
+    unsigned int k;
+
+    std::vector<int> candidateSpaces;
+    std::vector<int> adjacentToCandidate;
+
+    for (i = 0; i < possiblePriorityMoves.size(); i++){
+        candidateSpaces = {possiblePriorityMoves[i]};
+        for (j = 0; j < availableSelect.size(); j++){
+            adjacentToCandidate = (adjacentList[availableSelectIndices[j]]);
+            for (k = 0; k < adjacentToCandidate.size(); k++){
+                if (adjacentToCandidate[k] == possiblePriorityMoves[i]){
+                    candidateSpaces.push_back(j);
+                }
+            }
+        }
+        if (candidateSpaces.size() >= 3 && isPossibleMills){
+            priorityList.push_back(candidateSpaces);
+        } else if (candidateSpaces.size() >=2 && !isPossibleMills){
+            priorityList.push_back(candidateSpaces);
+        }
+    }
+}
+
 // Adds unoccupied spaces to available
 void SinglePlayerGame::scanSpaces() {
     unsigned int i;
@@ -26,7 +53,7 @@ void SinglePlayerGame::scanSpaces() {
     }
 }
 
-// Populates vector of computer piece indices
+// Creates vector with computer piece space indices
 void SinglePlayerGame::getAvailablePieceIndices(){
     unsigned int i;
     availableSelectIndices.clear();
@@ -41,99 +68,68 @@ void SinglePlayerGame::getAvailablePieceIndices(){
     }
 }
 
+// Finds which piece to move to make a valid mill
 void SinglePlayerGame::pieceToMoveForMill(){
     unsigned int i;
     unsigned int j;
     unsigned int k;
-    unsigned int pieceIndex;
+    unsigned int testedCandidatePieceIndex;
 
-
-    std::vector<std::vector<int>> updatedPriorityList;
+    std::vector<std::vector<int>> correctedPriorityList;
 
     for (i = 0; i < priorityList.size(); i++){
         std::vector<int> validMillMove;
         for (j = 1; j < priorityList[i].size(); j++){
             std::vector<int> potentialMill;
-            std::vector<int> piecesToMove;
+            std::vector<int> candidatePieces;
             potentialMill.push_back(priorityList[i][0]);
-            pieceIndex = priorityList[i][j];
+            testedCandidatePieceIndex = priorityList[i][j];
+
             for (k = 1; k < priorityList[i].size(); k++){
-                piecesToMove.push_back(availableSelectIndices[priorityList[i][k]]);
+                candidatePieces.push_back(availableSelectIndices[priorityList[i][k]]);
             }
-            for (k = 0; k < piecesToMove.size(); k++){
-                potentialMill.push_back(piecesToMove[k]);
+            for (k = 0; k < candidatePieces.size(); k++){
+                potentialMill.push_back(candidatePieces[k]);
             }
-            potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), piecesToMove[j-1]));
+            potentialMill.erase(std::remove(potentialMill.begin(), potentialMill.end(), candidatePieces[j-1]));
             sort(potentialMill.begin(), potentialMill.end());
+
             // if the mill is made with a corner piece
             if (potentialMill.size() != 3){
                 for (k = 0; k < availableSelect.size(); k++){
-                    std::vector<int> cornerMill;
-                    cornerMill = potentialMill;
-                    cornerMill.push_back(availableSelectIndices[k]);
-                    sort(cornerMill.begin(), cornerMill.end());
+                    std::vector<int> cornerSpaceMill;
+                    cornerSpaceMill = potentialMill;
+                    cornerSpaceMill.push_back(availableSelectIndices[k]);
+                    sort(cornerSpaceMill.begin(), cornerSpaceMill.end());
                     if (std::count(millList.begin(), millList.end(), potentialMill)){
                         validMillMove.push_back(priorityList[i][0]);
-                        validMillMove.push_back(pieceIndex);
-                        updatedPriorityList.push_back(validMillMove);
+                        validMillMove.push_back(testedCandidatePieceIndex);
+                        correctedPriorityList.push_back(validMillMove);
                         break;
                     }
                 }
             } else if (std::count(millList.begin(), millList.end(), potentialMill)){
                   validMillMove.push_back(priorityList[i][0]);
-                  validMillMove.push_back(pieceIndex);
-                  updatedPriorityList.push_back(validMillMove);
+                  validMillMove.push_back(testedCandidatePieceIndex);
+                  correctedPriorityList.push_back(validMillMove);
                   break;
             }
         }
     }
-    priorityList = updatedPriorityList;
+    priorityList = correctedPriorityList;
 }
 
 // Computer move logic for phase two
 void SinglePlayerGame::priorityScanPhaseTwo(){
-    unsigned int i;
-    unsigned int j;
-    unsigned int k;
-    std::vector<int> candidatePieceIndex;
-    std::vector<int> adjacentToCandidate;
-
     priorityScan();
     scanSpaces();
     getAvailablePieceIndices();
-    // Finds the mills it can legally make
-    for (i = 0; i < possibleMill.size(); i++){
-        candidatePieceIndex = {possibleMill[i]};
-        for (j = 0; j < availableSelect.size(); j++){
-            adjacentToCandidate = (adjacentList[availableSelectIndices[j]]);
-            for (k = 0; k < adjacentToCandidate.size(); k++){
-                if (adjacentToCandidate[k] == possibleMill[i]){
-                    candidatePieceIndex.push_back(j);
-                }
-            }
-        }
-        if (candidatePieceIndex.size() >= 3){
-            priorityList.push_back(candidatePieceIndex);
-        }
-    }
+
+    priorityScanPopulation(possibleMill, true);
     if (!priorityList.empty()){
         pieceToMoveForMill();
     }
-    // Finds the blocks it can legally make
-    for (i = 0; i < possibleBlock.size(); i++){
-        candidatePieceIndex = {possibleBlock[i]};
-        for (j = 0; j < availableSelect.size(); j++){
-            adjacentToCandidate = (adjacentList[availableSelectIndices[j]]);
-            for (k = 0; k < adjacentToCandidate.size(); k++){
-                if (adjacentToCandidate[k] == possibleBlock[i]){
-                    candidatePieceIndex.push_back(j);
-                }
-            }
-        }
-        if (candidatePieceIndex.size() >= 2){
-            priorityList.push_back(candidatePieceIndex);
-        }
-    }
+    priorityScanPopulation(possibleBlock, false);
 }
 
 
@@ -200,10 +196,10 @@ void SinglePlayerGame::computerPhaseTwoMove() {
     int moveSpaceIndex;
     int pieceIndex;
     int randIndex;
-    bool priorityChosen = rand() % 2;
+    bool priorityMoveChosen = rand() % 2;
 
     priorityScanPhaseTwo();
-    if (!priorityList.empty() && priorityChosen){
+    if (!priorityList.empty() && priorityMoveChosen){
         validMove = true;
         randIndex = rand() % priorityList.size();
         pieceIndex = availableSelect[priorityList[randIndex][1]];
