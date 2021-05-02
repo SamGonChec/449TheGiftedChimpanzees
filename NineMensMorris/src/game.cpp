@@ -333,6 +333,7 @@ void Game::checkForPieceVictory() {
         }
         if (count < 3) {
             whiteVictory = true;
+            scene->addWidget(playAgainButton);
         }
     } else {
         for (i = 0; i < whitePieces.size(); i++) {
@@ -342,6 +343,7 @@ void Game::checkForPieceVictory() {
         }
         if (count < 3) {
             blackVictory = true;
+            scene->addWidget(playAgainButton);
         }
     }
 }
@@ -381,9 +383,11 @@ void Game::checkForMovesVictory() {
     if (count == 0) {
         if (whiteTurn && !blackFlying) {
             whiteVictory = true;
+            scene->addWidget(playAgainButton);
         }
         else if (!whiteTurn && !whiteFlying) {
             blackVictory = true;
+            scene->addWidget(playAgainButton);
         }
     }
 }
@@ -396,12 +400,8 @@ void Game::evaluateVictoryConditions() {
     }
     if (whiteVictory) {
         instructionText->setPlainText("White Wins!");
-
-        scene->addWidget(playAgainButton);
     } else if (blackVictory) {
         instructionText->setPlainText("Black Wins!");
-
-        scene->addWidget(playAgainButton);
     }
     else {
         startNewTurn();
