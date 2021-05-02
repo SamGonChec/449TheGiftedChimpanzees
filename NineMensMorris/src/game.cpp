@@ -140,22 +140,17 @@ Game::Game(QGraphicsScene *scene) {
 
     menuButton = new QPushButton(QString("Main Menu"));
     forfeitButton = new QPushButton(QString("Forfeit"));
-    playAgainButton = new QPushButton(QString("Play Again?"));
 
     forfeitButton->setGeometry(325,750,150,50);
-    playAgainButton->setGeometry(325,750,150,50);
     menuButton->setGeometry(325,800,150,50);
 
     QFont buttonFont("comic sans MS", 14);
 
     menuButton->setFont(buttonFont);
     forfeitButton->setFont(buttonFont);
-    playAgainButton->setFont(buttonFont);
 
     menuButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     forfeitButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
-    playAgainButton->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
-
     scene->addWidget(forfeitButton);
     scene->addWidget(menuButton);
     connect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
@@ -186,10 +181,8 @@ void Game::spaceCleanup(std::vector<Space*> &spaces){
 void Game::buttonCleanup() {
     scene->removeItem(forfeitButton->graphicsProxyWidget());
     scene->removeItem(menuButton->graphicsProxyWidget());
-    scene->removeItem(playAgainButton->graphicsProxyWidget());
     delete forfeitButton;
     delete menuButton;
-    delete playAgainButton;
 }
 
 void Game::textItemCleanup() {
@@ -333,7 +326,6 @@ void Game::checkForPieceVictory() {
         }
         if (count < 3) {
             whiteVictory = true;
-            scene->addWidget(playAgainButton);
         }
     } else {
         for (i = 0; i < whitePieces.size(); i++) {
@@ -343,7 +335,6 @@ void Game::checkForPieceVictory() {
         }
         if (count < 3) {
             blackVictory = true;
-            scene->addWidget(playAgainButton);
         }
     }
 }
@@ -383,11 +374,9 @@ void Game::checkForMovesVictory() {
     if (count == 0) {
         if (whiteTurn && !blackFlying) {
             whiteVictory = true;
-            scene->addWidget(playAgainButton);
         }
         else if (!whiteTurn && !whiteFlying) {
             blackVictory = true;
-            scene->addWidget(playAgainButton);
         }
     }
 }
