@@ -103,6 +103,27 @@ Game::Game(QGraphicsScene *scene) {
     //Selecting first piece
     selectPiece(whitePieces[0]);
 
+    // Add column labels to game board
+    for (int i = 0; i < 7; i++) {
+        columnSpaceLabels[i] = new QLabel;
+        columnSpaceLabels[i]->setText(QString::number(7 - i));
+        columnSpaceLabels[i]->setStyleSheet("color: #00DCDC; padding: 5px;");
+        columnSpaceLabels[i]->setAttribute(Qt::WA_TranslucentBackground);
+        columnSpaceLabels[i]->setGeometry(715, (100 * i) + 40, 25, 25);
+        scene->addWidget(columnSpaceLabels[i]);
+    }
+
+    // Add row labels to game board
+    for (int i = 0; i < 7; i++) {
+        QString letter = QString(i + 65);
+        rowSpaceLabels[i] = new QLabel;
+        rowSpaceLabels[i]->setText(letter);
+        rowSpaceLabels[i]->setStyleSheet("color: #00DCDC; padding: 5px;");
+        rowSpaceLabels[i]->setAttribute(Qt::WA_TranslucentBackground);
+        rowSpaceLabels[i]->setGeometry((100 * i) + 90, 10, 25, 25);
+        scene->addWidget(rowSpaceLabels[i]);
+    }
+
     // initialize text fonts
     QFont titleFont("Comic Sans MS", 16);
     QFont statusFont("Comic Sans MS", 12);

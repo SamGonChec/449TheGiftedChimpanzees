@@ -12,7 +12,7 @@ void Board::paintEvent(QPaintEvent */*event*/) {
     QPixmap pix(":/images/media/grainy-wood.jpg");
     painter.setBrush(QBrush(pix));
     painter.setPen(QPen(Qt::black,5));
-    painter.drawRect(QRect(50, 0, 700, 670));
+    painter.drawRect(QRect(50,0,700,670));
 
     //Outer square
     chooseLineColor(&painter, 0);
@@ -53,7 +53,6 @@ void Board::paintEvent(QPaintEvent */*event*/) {
     painter.drawLine(500,350,700,350);
     chooseLineColor(&painter, 15);
     painter.drawLine(400,450,400,650);
-
 }
 
 void Board::chooseLineColor(QPainter *painter, int millIndex) {

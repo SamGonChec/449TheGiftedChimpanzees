@@ -9,6 +9,7 @@
 #include <QGraphicsScene>
 #include <QLabel>
 #include <QListWidget>
+#include <QMap>
 #include <QObject>
 #include <QPushButton>
 #include <QString>
@@ -102,6 +103,9 @@ protected:
 
     QLabel *statusLabel;
     QListWidget *statusContents;
+
+    QLabel *columnSpaceLabels[7];
+    QLabel *rowSpaceLabels[7];
 
 private slots:
     void pieceCaptureAction(Piece *piece);
