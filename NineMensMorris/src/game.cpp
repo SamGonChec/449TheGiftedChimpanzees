@@ -348,16 +348,16 @@ void Game::setMoveHistoryText(Piece *piece) {
         if (whiteTurn) {
             moveHistoryContents->addItem("White placed a piece on " + spaceCoordinate);
         }
-        else {
-            moveHistoryContents->addItem("Black placed a piece on " + spaceCoordinate + "\n");
+        else if (!whiteTurn) {
+            moveHistoryContents->addItem("Black placed a piece on " + spaceCoordinate);
         }
     }
     else {
         if (whiteTurn) {
-            moveHistoryContents->addItem("White has captured a Black piece on " + spaceCoordinate + "\n");
+            moveHistoryContents->addItem("CAPTURED! White has captured a Black piece on " + spaceCoordinate);
         }
         else {
-            moveHistoryContents->addItem("Black has captured a White piece on " + spaceCoordinate + "\n");
+            moveHistoryContents->addItem("CAPTURED! Black has captured a White piece on " + spaceCoordinate);
         }
     }
     moveHistoryContents->scrollToBottom();
