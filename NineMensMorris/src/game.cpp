@@ -6,6 +6,7 @@ Game::~Game() {
     Game::pieceCleanup(blackPieces);
     Game::spaceCleanup(spaceList);
     Game::textItemCleanup();
+    Game::moveHistoryCleanup();
     scene->removeItem(board->graphicsProxyWidget());
     Game::buttonCleanup();
     delete board;
@@ -133,7 +134,7 @@ Game::Game(QGraphicsScene *scene) {
     for (int i = 0; i < 7; i++) {
         columnSpaceLabels[i] = new QLabel;
         columnSpaceLabels[i]->setText(QString::number(7 - i));
-        columnSpaceLabels[i]->setStyleSheet("color: #00DCDC; padding: 5px;");
+        columnSpaceLabels[i]->setStyleSheet("color: #900603; font-size: 15px; font-weight: bold; padding: 5px;");
         columnSpaceLabels[i]->setAttribute(Qt::WA_TranslucentBackground);
         columnSpaceLabels[i]->setGeometry(715, (100 * i) + 40, 25, 25);
         scene->addWidget(columnSpaceLabels[i]);
@@ -144,7 +145,7 @@ Game::Game(QGraphicsScene *scene) {
         QString letter = QString(i + 65);
         rowSpaceLabels[i] = new QLabel;
         rowSpaceLabels[i]->setText(letter);
-        rowSpaceLabels[i]->setStyleSheet("color: #00DCDC; padding: 5px;");
+        rowSpaceLabels[i]->setStyleSheet("color: #900603; font-size: 15px; font-weight: bold; padding: 5px;");
         rowSpaceLabels[i]->setAttribute(Qt::WA_TranslucentBackground);
         rowSpaceLabels[i]->setGeometry((100 * i) + 90, 10, 25, 25);
         scene->addWidget(rowSpaceLabels[i]);
@@ -186,19 +187,18 @@ Game::Game(QGraphicsScene *scene) {
     scene->addItem(blackPieceText);
 
     // add status label to display list of status messages
-    statusLabel = new QLabel();
-    statusLabel->setText("Move History");
-    statusLabel->setGeometry(QRect(1000, 15, 150, 30));
-    statusLabel->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
-    scene->addWidget(statusLabel);
+    moveHistoryLabel = new QLabel();
+    moveHistoryLabel->setText("Move History");
+    moveHistoryLabel->setGeometry(QRect(1000, 15, 150, 30));
+    moveHistoryLabel->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(moveHistoryLabel);
 
     // add status list object that stores a list of status messages
-    statusContents = new QListWidget();
-    statusContents->addItem("Ryan has entered the battlefront");
-    statusContents->setWordWrap(true);
-    statusContents->setGeometry(QRect(1000, 50, 300, 350));
-    statusContents->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
-    scene->addWidget(statusContents);
+    moveHistoryContents = new QListWidget();
+    moveHistoryContents->setWordWrap(true);
+    moveHistoryContents->setGeometry(QRect(1000, 50, 300, 350));
+    moveHistoryContents->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(moveHistoryContents);
 
     menuButton = new QPushButton(QString("Main Menu"));
     forfeitButton = new QPushButton(QString("Forfeit"));
@@ -259,6 +259,14 @@ void Game::textItemCleanup() {
     delete titleText;
     delete instructionalText;
     delete turnText;
+}
+
+void Game::moveHistoryCleanup() {
+/* Remove move history label and text list */
+    scene->removeItem(moveHistoryLabel->graphicsProxyWidget());
+    scene->removeItem(moveHistoryContents->graphicsProxyWidget());
+    delete moveHistoryLabel;
+    delete moveHistoryContents;
 }
 
 int Game::getSpaceIndex(Space *space) {
@@ -333,24 +341,26 @@ void Game::setInstructionText(int turnNumber, bool captureMode) {
 }
 
 void Game::setMoveHistoryText(Piece *piece) {
+/* Update move history text list with recent moves/captures */
     int index = getSpaceIndex(piece->getSpace());
     QString spaceCoordinate = spaceIndexMap[index];
     if (!captureMode) {
         if (whiteTurn) {
-            statusContents->addItem("White placed a piece on " + spaceCoordinate);
+            moveHistoryContents->addItem("White placed a piece on " + spaceCoordinate);
         }
         else {
-            statusContents->addItem("Black placed a piece on " + spaceCoordinate + "\n");
+            moveHistoryContents->addItem("Black placed a piece on " + spaceCoordinate + "\n");
         }
     }
     else {
         if (whiteTurn) {
-            statusContents->addItem("White has captured a Black piece on " + spaceCoordinate);
+            moveHistoryContents->addItem("White has captured a Black piece on " + spaceCoordinate + "\n");
         }
         else {
-            statusContents->addItem("Black has captured a White piece on " + spaceCoordinate);
+            moveHistoryContents->addItem("Black has captured a White piece on " + spaceCoordinate + "\n");
         }
     }
+    moveHistoryContents->scrollToBottom();
 }
 
 void Game::checkForNewMill() {

@@ -26,6 +26,7 @@ public:
     void boardCleanup(QGraphicsProxyWidget* proxyBoard);
     void spaceCleanup(std::vector<Space*> &spaces);
     void textItemCleanup();
+    void moveHistoryCleanup();
     void buttonCleanup();
 
     int getSpaceIndex(Space *space);
@@ -102,8 +103,8 @@ protected:
     QGraphicsTextItem *blackPieceText;
     QGraphicsTextItem *instructionalText;
 
-    QLabel *statusLabel;
-    QListWidget *statusContents;
+    QLabel *moveHistoryLabel;
+    QListWidget *moveHistoryContents;
 
     QLabel *columnSpaceLabels[7];
     QLabel *rowSpaceLabels[7];

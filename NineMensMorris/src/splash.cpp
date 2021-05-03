@@ -16,9 +16,9 @@ void Splash::splashScreen(){
 
     // sets the font, style, and color of the text
     teamName->setFont(nameFont);
-    teamName->setDefaultTextColor(QColor("#FF4500"));
+    teamName->setDefaultTextColor(QColor("brown"));
     secondLine->setFont(nameFont);
-    secondLine->setDefaultTextColor(QColor("#FF4500"));
+    secondLine->setDefaultTextColor(QColor("brown"));
 
 
     // sets up the proper spacing and format for the image and lines
