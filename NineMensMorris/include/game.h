@@ -72,11 +72,9 @@ public:
 
     QPushButton *returnMainMenu() {return menuButton;}
     QPushButton *returnForfeitButton() {return forfeitButton;}
-    QPushButton *returnPlayAgainButton() {return playAgainButton;}
 protected:
     QPushButton *menuButton;
     QPushButton *forfeitButton;
-    QPushButton *playAgainButton;
     QGraphicsScene *scene;
     Board *board;
     bool whiteTurn;
