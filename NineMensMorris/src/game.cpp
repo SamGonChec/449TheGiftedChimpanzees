@@ -72,6 +72,32 @@ Game::Game(QGraphicsScene *scene) {
         scene->addWidget(spaceList[i]);
     }
 
+    // Map space indexes to their associated space coordinate
+    spaceIndexMap.insert(0, QString("A1"));
+    spaceIndexMap.insert(1, QString("A4"));
+    spaceIndexMap.insert(2, QString("A7"));
+    spaceIndexMap.insert(3, QString("B2"));
+    spaceIndexMap.insert(4, QString("B4"));
+    spaceIndexMap.insert(5, QString("B6"));
+    spaceIndexMap.insert(6, QString("C3"));
+    spaceIndexMap.insert(7, QString("C4"));
+    spaceIndexMap.insert(8, QString("C5"));
+    spaceIndexMap.insert(9, QString("D1"));
+    spaceIndexMap.insert(10, QString("D2"));
+    spaceIndexMap.insert(11, QString("D3"));
+    spaceIndexMap.insert(12, QString("D5"));
+    spaceIndexMap.insert(13, QString("D6"));
+    spaceIndexMap.insert(14, QString("D7"));
+    spaceIndexMap.insert(15, QString("E3"));
+    spaceIndexMap.insert(16, QString("E4"));
+    spaceIndexMap.insert(17, QString("E5"));
+    spaceIndexMap.insert(18, QString("F2"));
+    spaceIndexMap.insert(19, QString("F4"));
+    spaceIndexMap.insert(20, QString("F6"));
+    spaceIndexMap.insert(21, QString("G1"));
+    spaceIndexMap.insert(22, QString("G4"));
+    spaceIndexMap.insert(23, QString("G7"));
+
     //Adding white pieces
     whitePieces.push_back(new Piece(-30, 225));
     whitePieces.push_back(new Piece(-30, 275));
@@ -161,8 +187,8 @@ Game::Game(QGraphicsScene *scene) {
 
     // add status label to display list of status messages
     statusLabel = new QLabel();
-    statusLabel->setText("Status History");
-    statusLabel->setGeometry(QRect(1000, 0, 150, 25));
+    statusLabel->setText("Move History");
+    statusLabel->setGeometry(QRect(1000, 15, 150, 30));
     statusLabel->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     scene->addWidget(statusLabel);
 
@@ -170,7 +196,7 @@ Game::Game(QGraphicsScene *scene) {
     statusContents = new QListWidget();
     statusContents->addItem("Ryan has entered the battlefront");
     statusContents->setWordWrap(true);
-    statusContents->setGeometry(QRect(1000, 50, 200, 200));
+    statusContents->setGeometry(QRect(1000, 50, 300, 350));
     statusContents->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
     scene->addWidget(statusContents);
 
@@ -303,6 +329,27 @@ void Game::setInstructionText(int turnNumber, bool captureMode) {
     else if (captureMode) {
         instructionalText->setPlainText("A mill has been formed! "\
                                       "Remove an opponent's piece.");
+    }
+}
+
+void Game::setMoveHistoryText(Piece *piece) {
+    int index = getSpaceIndex(piece->getSpace());
+    QString spaceCoordinate = spaceIndexMap[index];
+    if (!captureMode) {
+        if (whiteTurn) {
+            statusContents->addItem("White placed a piece on " + spaceCoordinate);
+        }
+        else {
+            statusContents->addItem("Black placed a piece on " + spaceCoordinate + "\n");
+        }
+    }
+    else {
+        if (whiteTurn) {
+            statusContents->addItem("White has captured a Black piece on " + spaceCoordinate);
+        }
+        else {
+            statusContents->addItem("Black has captured a White piece on " + spaceCoordinate);
+        }
     }
 }
 
@@ -602,6 +649,7 @@ void Game::endPhaseOne() {
 
 void Game::pieceCaptureAction(Piece *piece) {
 /*Slot for action taken when capturable piece clicked*/
+    setMoveHistoryText(piece);
     scene->removeItem(piece->graphicsProxyWidget());
     piece->getSpace()->setOccupied(false);
     piece->setCaptured(true);
@@ -642,6 +690,7 @@ void Game::pieceSelectAction(Piece *piece) {
 
 void Game::nextTurn(Piece *piece) {
 /*Slot to change the player turn after a move*/
+    setMoveHistoryText(piece);
     endTurn(piece);
     checkForNewMill();
     if (!captureMode) {

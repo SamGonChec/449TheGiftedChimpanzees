@@ -36,6 +36,7 @@ public:
     void setTurnCountText(int turn);
     void setPlayerTurnText(bool whitePiece);
     void setInstructionText(int turnNumber, bool captureMode = false);
+    void setMoveHistoryText(Piece *piece);
 
     void checkForNewMill();
     void checkForFlying();
@@ -106,6 +107,8 @@ protected:
 
     QLabel *columnSpaceLabels[7];
     QLabel *rowSpaceLabels[7];
+
+    QMap<int, QString> spaceIndexMap;
 
 private slots:
     void pieceCaptureAction(Piece *piece);
