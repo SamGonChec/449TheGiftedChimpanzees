@@ -419,6 +419,7 @@ void Game::checkForPieceVictory() {
         }
         if (count < 3) {
             whiteVictory = true;
+            disconnect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
         }
     } else {
         for (i = 0; i < whitePieces.size(); i++) {
@@ -428,6 +429,7 @@ void Game::checkForPieceVictory() {
         }
         if (count < 3) {
             blackVictory = true;
+            disconnect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
         }
     }
 }
@@ -467,9 +469,11 @@ void Game::checkForMovesVictory() {
     if (count == 0) {
         if (whiteTurn && !blackFlying) {
             whiteVictory = true;
+            disconnect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
         }
         else if (!whiteTurn && !whiteFlying) {
             blackVictory = true;
+            disconnect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
         }
     }
 }
