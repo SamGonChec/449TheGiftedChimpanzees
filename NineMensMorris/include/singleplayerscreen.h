@@ -9,9 +9,8 @@ class SinglePlayerScreen{
 private:
     QPushButton *whiteButton;
     QPushButton *blackButton;
-public:
-    QString tutorialText;
     QGraphicsScene *scene;
+public:
     SinglePlayerScreen(QGraphicsScene *scene);
     void displaySinglePlayerScreen();
     QPushButton *returnWhiteButton() {return whiteButton;}

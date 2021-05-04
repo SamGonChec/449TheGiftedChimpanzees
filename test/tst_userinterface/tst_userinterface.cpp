@@ -67,6 +67,7 @@ void UserInterface::testOnePlayerMainMenuButton() {
     SinglePlayerGame computerGame(manager.returnSinglePlayerScene(), true);
     QSignalSpy spy(computerGame.returnMainMenu(), SIGNAL(clicked()));
     QCOMPARE(spy.count(), 0);
+    //QTest::mouseClick(computerGame.returnForfeitButton(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
     QTest::mouseClick(computerGame.returnMainMenu(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
     QCOMPARE(spy.count(), 1);
     manager.testSwitchBackToMainMenu(true);
@@ -83,11 +84,13 @@ void UserInterface::testTwoPlayerMainMenuButton() {
     Game game(manager.returnTwoPlayerScene());
     QSignalSpy spy(game.returnMainMenu(), SIGNAL(clicked()));
     QCOMPARE(spy.count(), 0);
+    //QTest::mouseClick(game.returnForfeitButton(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
     QTest::mouseClick(game.returnMainMenu(), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
     QCOMPARE(spy.count(), 1);
     manager.testSwitchBackToMainMenu(false);
     QCOMPARE(manager.testMenuSceneActive(), true);
 }
+
 QTEST_MAIN(UserInterface)
 
 

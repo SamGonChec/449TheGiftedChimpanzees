@@ -37,8 +37,6 @@ private:
     QGraphicsScene tutorialScene;
     QGraphicsScene singlePlayerScene;
     QGraphicsView view;
-    Game *game;
-    SinglePlayerGame *computerGame;
     Menu *menu;
 
 private slots:
@@ -52,7 +50,6 @@ private slots:
     void switchBackToMainMenuSinglePlayer();
     void switchBackToMainMenuTwoPlayer();
     void switchPlayAgainTwoPlayer();
-    void switchPlayAgainSinglePlayer();
 };
 
 #endif // GAMEMANAGER_H

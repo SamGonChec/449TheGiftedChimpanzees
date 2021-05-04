@@ -10,8 +10,8 @@ class Splash: public QObject{
     Q_OBJECT
 private:
     QPixmap splashBackground;
-public:
     QGraphicsScene* scene;
+public:
     Splash(QGraphicsScene *scene);
     void splashScreen();
 };

@@ -12,9 +12,8 @@ private:
     QPushButton* tutorialButton;
     QPushButton* singlePlayerButton;
     QPushButton* twoPlayerButton;
-public:
-    QString tutorialText;
     QGraphicsScene* scene;
+public:
     Tutorial(QGraphicsScene *scene);
     void tutorialScreen();
     QPushButton *returnPushButton() {return tutorialButton;}
