@@ -6,6 +6,7 @@ Game::~Game() {
     Game::pieceCleanup(blackPieces);
     Game::spaceCleanup(spaceList);
     Game::textItemCleanup();
+    Game::moveHistoryCleanup();
     scene->removeItem(board->graphicsProxyWidget());
     Game::buttonCleanup();
     delete board;
@@ -72,6 +73,32 @@ Game::Game(QGraphicsScene *scene) {
         scene->addWidget(spaceList[i]);
     }
 
+    // Map space indexes to their associated space coordinate
+    spaceIndexMap.insert(0, QString("A1"));
+    spaceIndexMap.insert(1, QString("A4"));
+    spaceIndexMap.insert(2, QString("A7"));
+    spaceIndexMap.insert(3, QString("B2"));
+    spaceIndexMap.insert(4, QString("B4"));
+    spaceIndexMap.insert(5, QString("B6"));
+    spaceIndexMap.insert(6, QString("C3"));
+    spaceIndexMap.insert(7, QString("C4"));
+    spaceIndexMap.insert(8, QString("C5"));
+    spaceIndexMap.insert(9, QString("D1"));
+    spaceIndexMap.insert(10, QString("D2"));
+    spaceIndexMap.insert(11, QString("D3"));
+    spaceIndexMap.insert(12, QString("D5"));
+    spaceIndexMap.insert(13, QString("D6"));
+    spaceIndexMap.insert(14, QString("D7"));
+    spaceIndexMap.insert(15, QString("E3"));
+    spaceIndexMap.insert(16, QString("E4"));
+    spaceIndexMap.insert(17, QString("E5"));
+    spaceIndexMap.insert(18, QString("F2"));
+    spaceIndexMap.insert(19, QString("F4"));
+    spaceIndexMap.insert(20, QString("F6"));
+    spaceIndexMap.insert(21, QString("G1"));
+    spaceIndexMap.insert(22, QString("G4"));
+    spaceIndexMap.insert(23, QString("G7"));
+
     //Adding white pieces
     whitePieces.push_back(new Piece(-30, 225));
     whitePieces.push_back(new Piece(-30, 275));
@@ -103,6 +130,27 @@ Game::Game(QGraphicsScene *scene) {
     //Selecting first piece
     selectPiece(whitePieces[0]);
 
+    // Add column labels to game board
+    for (int i = 0; i < 7; i++) {
+        columnSpaceLabels[i] = new QLabel;
+        columnSpaceLabels[i]->setText(QString::number(7 - i));
+        columnSpaceLabels[i]->setStyleSheet("color: #900603; font-size: 15px; font-weight: bold; padding: 5px;");
+        columnSpaceLabels[i]->setAttribute(Qt::WA_TranslucentBackground);
+        columnSpaceLabels[i]->setGeometry(715, (100 * i) + 40, 25, 25);
+        scene->addWidget(columnSpaceLabels[i]);
+    }
+
+    // Add row labels to game board
+    for (int i = 0; i < 7; i++) {
+        QString letter = QString(i + 65);
+        rowSpaceLabels[i] = new QLabel;
+        rowSpaceLabels[i]->setText(letter);
+        rowSpaceLabels[i]->setStyleSheet("color: #900603; font-size: 15px; font-weight: bold; padding: 5px;");
+        rowSpaceLabels[i]->setAttribute(Qt::WA_TranslucentBackground);
+        rowSpaceLabels[i]->setGeometry((100 * i) + 90, 10, 25, 25);
+        scene->addWidget(rowSpaceLabels[i]);
+    }
+
     // initialize text fonts
     QFont titleFont("Comic Sans MS", 16);
     QFont statusFont("Comic Sans MS", 12);
@@ -115,11 +163,11 @@ Game::Game(QGraphicsScene *scene) {
     scene->addItem(titleText);
 
     // add text item for displaying player instructions
-    instructionText = new QGraphicsTextItem("Place your pieces on the board!");
-    instructionText->setFont(statusFont);
-    instructionText->setTextWidth(375);
-    instructionText->setPos(50,700);
-    scene->addItem(instructionText);
+    instructionalText = new QGraphicsTextItem("Place your pieces on the board!");
+    instructionalText->setFont(statusFont);
+    instructionalText->setTextWidth(375);
+    instructionalText->setPos(50,700);
+    scene->addItem(instructionalText);
 
     // add text item for displaying the turn number
     turnText = new QGraphicsTextItem("Turn Number: 1");
@@ -137,6 +185,20 @@ Game::Game(QGraphicsScene *scene) {
     blackPieceText->setFont(pieceFont);
     blackPieceText->setPos(780, 180);
     scene->addItem(blackPieceText);
+
+    // add status label to display list of status messages
+    moveHistoryLabel = new QLabel();
+    moveHistoryLabel->setText("Move History");
+    moveHistoryLabel->setGeometry(QRect(1000, 15, 150, 30));
+    moveHistoryLabel->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(moveHistoryLabel);
+
+    // add status list object that stores a list of status messages
+    moveHistoryContents = new QListWidget();
+    moveHistoryContents->setWordWrap(true);
+    moveHistoryContents->setGeometry(QRect(1000, 50, 300, 350));
+    moveHistoryContents->setStyleSheet("background-color: brown; color: #00DCDC; border-style: outset; border-width: 2px; border-radius: 3px; border-color: yellow; padding: 6px;");
+    scene->addWidget(moveHistoryContents);
 
     menuButton = new QPushButton(QString("Main Menu"));
     forfeitButton = new QPushButton(QString("Forfeit"));
@@ -188,15 +250,23 @@ void Game::buttonCleanup() {
 void Game::textItemCleanup() {
 /* Remove text items from memory at the end of the game */
     scene->removeItem(titleText);
-    scene->removeItem(instructionText);
+    scene->removeItem(instructionalText);
     scene->removeItem(turnText);
     scene->removeItem(whitePieceText);
     scene->removeItem(blackPieceText);
     delete blackPieceText;
     delete whitePieceText;
     delete titleText;
-    delete instructionText;
+    delete instructionalText;
     delete turnText;
+}
+
+void Game::moveHistoryCleanup() {
+/* Remove move history label and text list */
+    scene->removeItem(moveHistoryLabel->graphicsProxyWidget());
+    scene->removeItem(moveHistoryContents->graphicsProxyWidget());
+    delete moveHistoryLabel;
+    delete moveHistoryContents;
 }
 
 int Game::getSpaceIndex(Space *space) {
@@ -259,15 +329,38 @@ void Game::setPlayerTurnText(bool whitePiece) {
 void Game::setInstructionText(int turnNumber, bool captureMode) {
 /* Updates instruction text item to assist player in what move they must take */
     if (turnNumber < 9 && !captureMode) {
-        instructionText->setPlainText("Place your pieces on the board!");
+        instructionalText->setPlainText("Place your pieces on the board!");
     }
     else if (turnNumber >= 9 && !captureMode) {
-        instructionText->setPlainText("Move your pieces to form a mill!");
+        instructionalText->setPlainText("Move your pieces to form a mill!");
     }
     else if (captureMode) {
-        instructionText->setPlainText("A mill has been formed! "\
+        instructionalText->setPlainText("A mill has been formed! "\
                                       "Remove an opponent's piece.");
     }
+}
+
+void Game::setMoveHistoryText(Piece *piece) {
+/* Update move history text list with recent moves/captures */
+    int index = getSpaceIndex(piece->getSpace());
+    QString spaceCoordinate = spaceIndexMap[index];
+    if (!captureMode) {
+        if (whiteTurn) {
+            moveHistoryContents->addItem("White placed a piece on " + spaceCoordinate);
+        }
+        else if (!whiteTurn) {
+            moveHistoryContents->addItem("Black placed a piece on " + spaceCoordinate);
+        }
+    }
+    else {
+        if (whiteTurn) {
+            moveHistoryContents->addItem("CAPTURED! White has captured a Black piece on " + spaceCoordinate);
+        }
+        else {
+            moveHistoryContents->addItem("CAPTURED! Black has captured a White piece on " + spaceCoordinate);
+        }
+    }
+    moveHistoryContents->scrollToBottom();
 }
 
 void Game::checkForNewMill() {
@@ -326,6 +419,7 @@ void Game::checkForPieceVictory() {
         }
         if (count < 3) {
             whiteVictory = true;
+            disconnect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
         }
     } else {
         for (i = 0; i < whitePieces.size(); i++) {
@@ -335,6 +429,7 @@ void Game::checkForPieceVictory() {
         }
         if (count < 3) {
             blackVictory = true;
+            disconnect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
         }
     }
 }
@@ -374,9 +469,11 @@ void Game::checkForMovesVictory() {
     if (count == 0) {
         if (whiteTurn && !blackFlying) {
             whiteVictory = true;
+            disconnect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
         }
         else if (!whiteTurn && !whiteFlying) {
             blackVictory = true;
+            disconnect(forfeitButton,SIGNAL(clicked()),this,SLOT(forfeit()));
         }
     }
 }
@@ -388,9 +485,9 @@ void Game::evaluateVictoryConditions() {
         checkForPieceVictory();
     }
     if (whiteVictory) {
-        instructionText->setPlainText("White Wins!");
+        instructionalText->setPlainText("White Wins!");
     } else if (blackVictory) {
-        instructionText->setPlainText("Black Wins!");
+        instructionalText->setPlainText("Black Wins!");
     }
     else {
         startNewTurn();
@@ -566,6 +663,7 @@ void Game::endPhaseOne() {
 
 void Game::pieceCaptureAction(Piece *piece) {
 /*Slot for action taken when capturable piece clicked*/
+    setMoveHistoryText(piece);
     scene->removeItem(piece->graphicsProxyWidget());
     piece->getSpace()->setOccupied(false);
     piece->setCaptured(true);
@@ -606,6 +704,7 @@ void Game::pieceSelectAction(Piece *piece) {
 
 void Game::nextTurn(Piece *piece) {
 /*Slot to change the player turn after a move*/
+    setMoveHistoryText(piece);
     endTurn(piece);
     checkForNewMill();
     if (!captureMode) {

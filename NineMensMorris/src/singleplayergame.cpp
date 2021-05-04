@@ -358,6 +358,7 @@ void SinglePlayerGame::startNewTurn() {
 }
 
 void SinglePlayerGame::nextTurn(Piece *piece) {
+    setMoveHistoryText(piece);
     endTurn(piece);
     checkForNewMill();
     if (!captureMode) {

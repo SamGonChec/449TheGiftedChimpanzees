@@ -5,14 +5,16 @@
 #include "include/piece.h"
 #include "include/board.h"
 
-#include <vector>
-#include <QObject>
+#include <QFont>
 #include <QGraphicsScene>
 #include <QLabel>
-#include <QString>
-#include <QFont>
+#include <QListWidget>
+#include <QMap>
+#include <QObject>
 #include <QPushButton>
+#include <QString>
 #include <QtWidgets/QGraphicsProxyWidget>
+#include <vector>
 
 
 class Game : public QObject {
@@ -24,6 +26,7 @@ public:
     void boardCleanup(QGraphicsProxyWidget* proxyBoard);
     void spaceCleanup(std::vector<Space*> &spaces);
     void textItemCleanup();
+    void moveHistoryCleanup();
     void buttonCleanup();
 
     int getSpaceIndex(Space *space);
@@ -34,6 +37,7 @@ public:
     void setTurnCountText(int turn);
     void setPlayerTurnText(bool whitePiece);
     void setInstructionText(int turnNumber, bool captureMode = false);
+    void setMoveHistoryText(Piece *piece);
 
     void checkForNewMill();
     void checkForFlying();
@@ -67,7 +71,7 @@ public:
     QString testTurnText() { return turnText->toPlainText(); }
     QString testWhitePieceText() { return whitePieceText->toPlainText(); }
     QString testBlackPieceText() { return blackPieceText->toPlainText(); }
-    QString testInstructionText() { return instructionText->toPlainText(); }
+    QString testInstructionText() { return instructionalText->toPlainText(); }
 
     QPushButton *returnMainMenu() {return menuButton;}
     QPushButton *returnForfeitButton() {return forfeitButton;}
@@ -97,7 +101,15 @@ protected:
     QGraphicsTextItem *turnText;
     QGraphicsTextItem *whitePieceText;
     QGraphicsTextItem *blackPieceText;
-    QGraphicsTextItem *instructionText;
+    QGraphicsTextItem *instructionalText;
+
+    QLabel *moveHistoryLabel;
+    QListWidget *moveHistoryContents;
+
+    QLabel *columnSpaceLabels[7];
+    QLabel *rowSpaceLabels[7];
+
+    QMap<int, QString> spaceIndexMap;
 
 private slots:
     void pieceCaptureAction(Piece *piece);
