@@ -23,6 +23,10 @@ public:
     void startNewTurn();
     QPushButton *returnMainMenu() {return menuButton;}
     QPushButton *returnForfeitButton() {return forfeitButton;}
+
+    //Functions for testing
+    Space *getSpace(int spaceIndex) { return spaceList[spaceIndex]; }
+    std::vector<Space*> getSpaceList() { return spaceList; }
 private:
     bool computerColorWhite;
     std::vector<int> possibleBlock;
