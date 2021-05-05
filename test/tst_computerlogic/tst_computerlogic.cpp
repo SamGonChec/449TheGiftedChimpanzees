@@ -1,6 +1,7 @@
 #include "tst_computerlogic.h"
 
 void ComputerLogic::testComputerPlacePiece() {
+/*Test that the computer can place a piece*/
     SinglePlayerGame game(&testScene, true);
     std::vector<Space*> spaceList = game.getSpaceList();
     for(int i = 0; i < 24; i++) {
@@ -10,6 +11,7 @@ void ComputerLogic::testComputerPlacePiece() {
 }
 
 void ComputerLogic::testComputerPlayerBlock() {
+/*Test that the computer can block a user forming a mill*/
     SinglePlayerGame game(&testScene, false);
     int blockSpace;
     QTest::mousePress(game.getSpace(22), Qt::LeftButton, Qt::KeyboardModifiers(), QPoint(10, 10));
