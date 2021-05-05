@@ -190,19 +190,18 @@ void SinglePlayerGame::computerPhaseTwoMove() {
     int moveSpaceIndex;
     int pieceIndex;
     int randIndex;
-    bool priorityMoveChosen = rand() % 2;
 
     priorityScanPhaseTwo();
-    if (!priorityList.empty() && priorityMoveChosen){
+    if (!priorityList.empty()){
         validMove = true;
         randIndex = rand() % priorityList.size();
-        pieceIndex = availableSelect[priorityList[randIndex][1]];
+        pieceIndex = availableSelect[priorityList[0][1]];
         if (computerColorWhite) {
             chosenPiece = whitePieces[pieceIndex];
         } else {
             chosenPiece = blackPieces[pieceIndex];
         }
-        moveSpaceIndex = priorityList[randIndex][0];
+        moveSpaceIndex = priorityList[0][0];
     }
     while (!validMove) {
            //Choosing a piece
